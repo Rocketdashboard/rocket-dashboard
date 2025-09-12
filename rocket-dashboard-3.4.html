@@ -1,0 +1,311 @@
+
+<html lang="nl">
+<head>
+<meta charset="utf-8"/>
+<link href="https://rocket.maximizer.io/favicon.png" rel="icon"/>
+<title>Rocket Rapporten</title>
+<style>
+    :root {
+      --bg-color: #f4f4f4;
+      --text-color: #222;
+      --card-color: #ffffff;
+      --button-color: #007bff;
+      --button-hover: #0056b3;
+    }
+
+    body.dark {
+      --bg-color: #1e1e1e;
+      --text-color: #f1f1f1;
+      --card-color: #2b2b2b;
+      --button-color: #3399ff;
+      --button-hover: #1a75d1;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin: 0;
+    }
+
+    .toggle-container {
+      position: static;
+    }
+
+    .toggle-container button {
+      background: none;
+      border: 1px solid var(--text-color);
+      padding: 6px 12px;
+      color: var(--text-color);
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .card {
+      background: var(--card-color);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    }
+
+    .card .label {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button.action-button {
+      padding: 8px 14px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      background: var(--button-color);
+      color: white;
+      border-radius: 5px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    button.action-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      background: var(--button-hover);
+    }
+
+    @media (max-width: 600px) {
+      .buttons {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .buttons button {
+        width: 100%;
+      }
+
+      .header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+  
+.card.hero .label {
+  text-align: center;
+}
+.card.hero .buttons {
+  justify-content: center;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header-row">
+<h1>🚀 Rocket Rapporten</h1>
+<div class="toggle-container">
+<button onclick="toggleDarkMode()">🌙 Donkere modus</button>
+</div>
+</div>
+<div class="card hero"><div class="label">🔎 Alle campagnes</div><div class="buttons">
+<button class="action-button" onclick="openReport('', 'today')">Vandaag</button>
+<button class="action-button" onclick="openReport('', 'yesterday')">Gisteren</button>
+<button class="action-button" onclick="openReport('', 'last7')">Laatste 7 dagen</button>
+<button class="action-button" onclick="openReport('', 'month')">Deze maand</button>
+<button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1-kVKjgt0gqgKWXAdrCnnAwNlbWxkHF7CF3H6t5Sx0PQ/edit?gid=1243890131#gid=1243890131', '_blank')">Worksheet</button></div></div>
+<style>
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .col {
+    display: block;
+  }
+  @media (max-width: 900px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+</style>
+<div class="two-col">
+<div class="col">
+<div class="card"><div class="label">Jim</div><div class="buttons">
+<button class="action-button" onclick="openReport('- sjh', 'today')">Vandaag</button>
+<button class="action-button" onclick="openReport('- sjh', 'yesterday')">Gisteren</button>
+<button class="action-button" onclick="openReport('- sjh', 'last7')">Laatste 7 dagen</button>
+<button class="action-button" onclick="openReport('- sjh', 'month')">Deze maand</button>
+<button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1yVq9gRSujn_QvmE41y9FMU69Svypsts8dpbFQZ9SGMI/edit?gid=1791011497#gid=1791011497', '_blank')">Worksheet</button></div></div>
+<div class="card"><div class="label">Julian</div><div class="buttons">
+<button class="action-button" onclick="openReport('- sjb', 'today')">Vandaag</button>
+<button class="action-button" onclick="openReport('- sjb', 'yesterday')">Gisteren</button>
+<button class="action-button" onclick="openReport('- sjb', 'last7')">Laatste 7 dagen</button>
+<button class="action-button" onclick="openReport('- sjb', 'month')">Deze maand</button>
+<button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/192EsbJ2FpKV16s3ycqJ8chjIKBmdNt-CaxBrNBugHhg/edit?gid=0#gid=0', '_blank')">Worksheet</button></div></div>
+<div class="card"><div class="label">Ejla</div><div class="buttons">
+<button class="action-button" onclick="openReport('- sep', 'today')">Vandaag</button>
+<button class="action-button" onclick="openReport('- sep', 'yesterday')">Gisteren</button>
+<button class="action-button" onclick="openReport('- sep', 'last7')">Laatste 7 dagen</button>
+<button class="action-button" onclick="openReport('- sep', 'month')">Deze maand</button>
+<button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1pnkBkcmHvduczLF59X-S_aJKm3iC1Dpw9FnYofxNTcY/edit?gid=1791011497#gid=1791011497', '_blank')">Worksheet</button></div></div>
+<div class="card"><div class="label">Lukas</div><div class="buttons">
+<button class="action-button" onclick="openReport('- slj', 'today')">Vandaag</button>
+<button class="action-button" onclick="openReport('- slj', 'yesterday')">Gisteren</button>
+<button class="action-button" onclick="openReport('- slj', 'last7')">Laatste 7 dagen</button>
+<button class="action-button" onclick="openReport('- slj', 'month')">Deze maand</button>
+<button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1_LiFYEu2TvFU3I_1ycHPiXN7svuWs73q5pdbeHtdHCA/edit?gid=1988235623#gid=1988235623', '_blank')">Worksheet</button></div></div>
+<div class="card"><div class="label">Lotte</div><div class="buttons">
+<button class="action-button" onclick="openReport('- slh', 'today')">Vandaag</button>
+<button class="action-button" onclick="openReport('- slh', 'yesterday')">Gisteren</button>
+<button class="action-button" onclick="openReport('- slh', 'last7')">Laatste 7 dagen</button>
+<button class="action-button" onclick="openReport('- slh', 'month')">Deze maand</button>
+<button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1_LiFYEu2TvFU3I_1ycHPiXN7svuWs73q5pdbeHtdHCA/edit?gid=280801659#gid=280801659', '_blank')">Worksheet</button></div></div>
+<div class="card"><div class="label">Bram</div><div class="buttons">
+<button class="action-button" onclick="openReport('- sbl', 'today')">Vandaag</button>
+<button class="action-button" onclick="openReport('- sbl', 'yesterday')">Gisteren</button>
+<button class="action-button" onclick="openReport('- sbl', 'last7')">Laatste 7 dagen</button>
+<button class="action-button" onclick="openReport('- sbl', 'month')">Deze maand</button>
+<button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1_LiFYEu2TvFU3I_1ycHPiXN7svuWs73q5pdbeHtdHCA/edit?gid=683968757#gid=683968757', '_blank')">Worksheet</button></div></div>
+<div class="card"><div class="label">Stijn</div><div class="buttons">
+<button class="action-button" onclick="openReport('- sss', 'today')">Vandaag</button>
+<button class="action-button" onclick="openReport('- sss', 'yesterday')">Gisteren</button>
+<button class="action-button" onclick="openReport('- sss', 'last7')">Laatste 7 dagen</button>
+<button class="action-button" onclick="openReport('- sss', 'month')">Deze maand</button>
+<button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1_LiFYEu2TvFU3I_1ycHPiXN7svuWs73q5pdbeHtdHCA/edit?gid=663276660#gid=663276660', '_blank')">Worksheet</button></div></div>
+<div class="card"><div class="label">Olaf</div><div class="buttons">
+<button class="action-button" onclick="openReport('- sod', 'today')">Vandaag</button>
+<button class="action-button" onclick="openReport('- sod', 'yesterday')">Gisteren</button>
+<button class="action-button" onclick="openReport('- sod', 'last7')">Laatste 7 dagen</button>
+<button class="action-button" onclick="openReport('- sod', 'month')">Deze maand</button>
+<button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1_LiFYEu2TvFU3I_1ycHPiXN7svuWs73q5pdbeHtdHCA/edit?gid=2032930833#gid=2032930833', '_blank')">Worksheet</button></div></div>
+<div class="card"><div class="label">Julian R</div><div class="buttons">
+<button class="action-button" onclick="openReport('- sjr', 'today')">Vandaag</button>
+<button class="action-button" onclick="openReport('- sjr', 'yesterday')">Gisteren</button>
+<button class="action-button" onclick="openReport('- sjr', 'last7')">Laatste 7 dagen</button>
+<button class="action-button" onclick="openReport('- sjr', 'month')">Deze maand</button>
+<button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1_LiFYEu2TvFU3I_1ycHPiXN7svuWs73q5pdbeHtdHCA/edit?gid=0#gid=0', '_blank')">Worksheet</button></div></div>
+</div>
+<div class="col">
+<div class="card"><div class="label">Sebastian</div><div class="buttons">
+<button class="action-button" onclick="openReport('- sse', 'today')">Vandaag</button>
+<button class="action-button" onclick="openReport('- sse', 'yesterday')">Gisteren</button>
+<button class="action-button" onclick="openReport('- sse', 'last7')">Laatste 7 dagen</button>
+<button class="action-button" onclick="openReport('- sse', 'month')">Deze maand</button>
+<button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/12WseB7nIiikaVpYDi0nBtVzTgODCsjlG8EfVRzLhvPc/edit?gid=0#gid=0', '_blank')">Worksheet</button></div></div>
+<div class="card"><div class="label">Giovanni</div><div class="buttons">
+<button class="action-button" onclick="openReport('- sgv', 'today')">Vandaag</button>
+<button class="action-button" onclick="openReport('- sgv', 'yesterday')">Gisteren</button>
+<button class="action-button" onclick="openReport('- sgv', 'last7')">Laatste 7 dagen</button>
+<button class="action-button" onclick="openReport('- sgv', 'month')">Deze maand</button>
+<button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1mFpJDwoK2wBdrF6UupxwLF3rW53aSLwI9jbQY7h9kjA/edit?gid=0#gid=0', '_blank')">Worksheet</button></div></div>
+<div class="card"><div class="label">Wouter</div><div class="buttons">
+<button class="action-button" onclick="openReport('- swb', 'today')">Vandaag</button>
+<button class="action-button" onclick="openReport('- swb', 'yesterday')">Gisteren</button>
+<button class="action-button" onclick="openReport('- swb', 'last7')">Laatste 7 dagen</button>
+<button class="action-button" onclick="openReport('- swb', 'month')">Deze maand</button>
+<button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1ULPhjnigNJp2sCK6L_C90CCLwrT6r4GeLa6ZOl6SOyc/edit?gid=0#gid=0', '_blank')">Worksheet</button></div></div>
+<div class="card"><div class="label">Richard</div><div class="buttons">
+<button class="action-button" onclick="openReport('- srz', 'today')">Vandaag</button>
+<button class="action-button" onclick="openReport('- srz', 'yesterday')">Gisteren</button>
+<button class="action-button" onclick="openReport('- srz', 'last7')">Laatste 7 dagen</button>
+<button class="action-button" onclick="openReport('- srz', 'month')">Deze maand</button>
+<button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1_ETr2zVUOumS3bgkn7N1aDynZtcwveWa4PV-5kr37Dc/edit?gid=0#gid=0', '_blank')">Worksheet</button></div></div>
+<div class="card"><div class="label">Sander</div><div class="buttons">
+<button class="action-button" onclick="openReport('- sst', 'today')">Vandaag</button>
+<button class="action-button" onclick="openReport('- sst', 'yesterday')">Gisteren</button>
+<button class="action-button" onclick="openReport('- sst', 'last7')">Laatste 7 dagen</button>
+<button class="action-button" onclick="openReport('- sst', 'month')">Deze maand</button>
+<button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1_LiFYEu2TvFU3I_1ycHPiXN7svuWs73q5pdbeHtdHCA/edit?gid=1315229407#gid=1315229407', '_blank')">Worksheet</button></div></div>
+<div class="card"><div class="label">Sem</div><div class="buttons">
+<button class="action-button" onclick="openReport('- ssd', 'today')">Vandaag</button>
+<button class="action-button" onclick="openReport('- ssd', 'yesterday')">Gisteren</button>
+<button class="action-button" onclick="openReport('- ssd', 'last7')">Laatste 7 dagen</button>
+<button class="action-button" onclick="openReport('- ssd', 'month')">Deze maand</button>
+<button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1_LiFYEu2TvFU3I_1ycHPiXN7svuWs73q5pdbeHtdHCA/edit?gid=1433868273#gid=1433868273', '_blank')">Worksheet</button></div></div>
+<div class="card"><div class="label">Owen</div><div class="buttons">
+<button class="action-button" onclick="openReport('- sow', 'today')">Vandaag</button>
+<button class="action-button" onclick="openReport('- sow', 'yesterday')">Gisteren</button>
+<button class="action-button" onclick="openReport('- sow', 'last7')">Laatste 7 dagen</button>
+<button class="action-button" onclick="openReport('- sow', 'month')">Deze maand</button>
+<button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1_LiFYEu2TvFU3I_1ycHPiXN7svuWs73q5pdbeHtdHCA/edit?gid=920811643#gid=920811643', '_blank')">Worksheet</button></div></div>
+<div class="card"><div class="label">Luc</div><div class="buttons">
+<button class="action-button" onclick="openReport('- slr', 'today')">Vandaag</button>
+<button class="action-button" onclick="openReport('- slr', 'yesterday')">Gisteren</button>
+<button class="action-button" onclick="openReport('- slr', 'last7')">Laatste 7 dagen</button>
+<button class="action-button" onclick="openReport('- slr', 'month')">Deze maand</button>
+<button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1_LiFYEu2TvFU3I_1ycHPiXN7svuWs73q5pdbeHtdHCA/edit?gid=1120262296#gid=1120262296', '_blank')">Worksheet</button></div></div>
+<div class="card"><div class="label">Kevin</div><div class="buttons">
+<button class="action-button" onclick="openReport('- sks', 'today')">Vandaag</button>
+<button class="action-button" onclick="openReport('- sks', 'yesterday')">Gisteren</button>
+<button class="action-button" onclick="openReport('- sks', 'last7')">Laatste 7 dagen</button>
+<button class="action-button" onclick="openReport('- sks', 'month')">Deze maand</button>
+<button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1_LiFYEu2TvFU3I_1ycHPiXN7svuWs73q5pdbeHtdHCA/edit?gid=333322230#gid=333322230', '_blank')">Worksheet</button></div></div>
+</div>
+</div>
+<script>
+  function formatDate(date) {
+    return date.toISOString().slice(0, 10);
+  }
+
+  function openReport(campagne, range) {
+    const nu = new Date();
+    let dateStart, dateEnd;
+
+    if (range === 'today') {
+      dateStart = dateEnd = formatDate(nu);
+    } else if (range === 'yesterday') {
+      const gisteren = new Date(nu.getTime() - 86400000);
+      dateStart = dateEnd = formatDate(gisteren);
+    } else if (range === 'last7') {
+      const zevenDagenTerug = new Date(nu.getTime() - 6 * 86400000);
+      dateStart = formatDate(zevenDagenTerug);
+      dateEnd = formatDate(nu);
+    } else if (range === 'month') {
+      const eersteDag = new Date(Date.UTC(nu.getFullYear(), nu.getMonth(), 1));
+      dateStart = formatDate(eersteDag);
+      dateEnd = formatDate(nu);
+    }
+
+    let url = `https://rocket.maximizer.io/stats?dateStart=${dateStart}&dateEnd=${dateEnd}`;
+    url += `&dimensions=campaignName,campaignID,campaignStatus,adsetDailyBudget`;
+    url += `&metrics=cpa,rpc,spend,revenue,profit,roi`;
+
+    if (campagne) {
+      url += `&filter=campaignName:cn:${campagne}`;
+    }
+
+    url += `&filter=spend:gt:1&sort=-profit&style=flat`;
+
+    window.open(url, '_blank');
+  }
+
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark');
+  }
+</script>
+</div></body>
+</html>
