@@ -63,7 +63,7 @@
     .card {
       background: var(--card-color);
       border-radius: 8px;
-      padding: 16px;
+      padding: 20px;
       margin-bottom: 20px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.08);
     }
@@ -92,37 +92,49 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
-    /* Specifieke breedte voor de zoekknoppen zodat ze gelijk zijn */
-    .search-button {
-      min-width: 140px;
-    }
-
     button.action-button:hover {
       transform: translateY(-1px);
       box-shadow: 0 4px 8px rgba(0,0,0,0.15);
       background: var(--button-hover);
     }
 
-    @media (max-width: 600px) {
-      .buttons {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .buttons button {
-        width: 100%;
-      }
-      .header-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
+    /* Zoeksectie styling */
+    .top-controls {
+      display: flex;
+      align-items: flex-start;
+      gap: 30px;
     }
-  
-    .card.hero .label {
-      text-align: center;
-    }
-    .card.hero .buttons {
+
+    .calendar-section {
+      padding-right: 30px;
+      border-right: 1px solid #ccc;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 85px;
       justify-content: center;
+    }
+
+    .search-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-grow: 1;
+    }
+
+    .inline-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .fixed-label {
+      min-width: 100px;
+      font-weight: 500;
+    }
+
+    .search-button {
+      min-width: 140px;
     }
 
     input[type="date"], input[type="text"] {
@@ -135,18 +147,17 @@
       border-radius: 5px;
     }
 
-    .card .buttons .inline-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-      margin: 0;
-    }
-
-    .search-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    @media (max-width: 950px) {
+      .top-controls {
+        flex-direction: column;
+      }
+      .calendar-section {
+        border-right: none;
+        padding-right: 0;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 20px;
+        width: 100%;
+      }
     }
 
     .two-col {
@@ -154,12 +165,8 @@
       grid-template-columns: 1fr 1fr;
       gap: 20px;
     }
-    .col {
-      display: block;
-    }
-    @media (max-width: 900px) {
-      .two-col { grid-template-columns: 1fr; }
-    }
+    .col { display: block; }
+    @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -172,24 +179,26 @@
   </div>
 
   <div class="card">
-    <div class="buttons inline-row">
-      <div class="inline-row" style="margin-right: 20px; border-right: 1px solid #ccc; padding-right: 20px;">
-          <span>Periode:</span>
+    <div class="top-controls">
+      <div class="calendar-section">
+        <div class="inline-row">
+          <span class="fixed-label">Periode:</span>
           <input id="fromDate" type="date"/>
           <span>t/m</span>
           <input id="toDate" type="date"/>
-          <button class="action-button" onclick="handleOpenCustomAll()">Open (alle campagnes)</button>
+        </div>
+        <button class="action-button" onclick="handleOpenCustomAll()">Open (alle campagnes)</button>
       </div>
       
       <div class="search-stack">
         <div class="inline-row">
-          <span style="min-width: 120px;">Naam zoeken:</span>
-          <input id="campaignQuery" type="text" placeholder="Voer campagnenaam in" style="min-width:280px;" />
+          <span class="fixed-label">Naam:</span>
+          <input id="campaignQuery" type="text" placeholder="Voer campagnenaam in" style="flex-grow:1; max-width: 300px;" />
           <button class="action-button search-button" onclick="handleSearchCampaign()">Zoek op Naam</button>
         </div>
         <div class="inline-row">
-          <span style="min-width: 120px;">ID zoeken:</span>
-          <input id="campaignIdQuery" type="text" placeholder="Voer Campaign ID in" style="min-width:280px;" />
+          <span class="fixed-label">ID:</span>
+          <input id="campaignIdQuery" type="text" placeholder="Voer Campaign ID in" style="flex-grow:1; max-width: 300px;" />
           <button class="action-button search-button" onclick="handleSearchById()">Zoek op ID</button>
         </div>
       </div>
@@ -197,13 +206,13 @@
   </div>
 
   <div class="card hero">
-    <div class="label">🔎 Alle campagnes</div>
-    <div class="buttons">
+    <div class="label" style="text-align:center;">🔎 Alle campagnes</div>
+    <div class="buttons" style="justify-content:center;">
       <button class="action-button" onclick="openReport('', 'today')">Vandaag</button>
       <button class="action-button" onclick="openReport('', 'yesterday')">Gisteren</button>
       <button class="action-button" onclick="openHourly('today')">Uren vandaag</button>
       <button class="action-button" onclick="openHourly('yesterday')">Uren gisteren</button>
-       <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1pcaDGNZmGRt5cV8aUGC1eMUPLo8A_aXBlMvVHfvXuSg/edit?gid=1072646418#gid=1072646418', '_blank')">Parentsheet</button>
+      <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1pcaDGNZmGRt5cV8aUGC1eMUPLo8A_aXBlMvVHfvXuSg/edit?gid=1072646418#gid=1072646418', '_blank')">Parentsheet</button>
       <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/14J5aJfmYfS1kykiIfzA0hTG3UHz80r2MyHcicfTacws/edit?gid=118875398#gid=118875398', '_blank')">Informationsheet</button>
     </div>
   </div>
@@ -217,7 +226,6 @@
         <button class="action-button" onclick="openHourly('yesterday', '- sjh')">Uren gisteren</button>
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1kT_9Yy1SrSLJxcvR4ydH_FukL1firLml2udxDqxsk9M/edit?gid=1426903825#gid=1426903825', '_blank')">Worksheet</button>
       </div></div>
-
       <div class="card"><div class="label">Julian</div><div class="buttons">
         <button class="action-button" onclick="openReport('- sjb', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- sjb', 'yesterday')">Gisteren</button>
@@ -225,7 +233,6 @@
         <button class="action-button" onclick="openHourly('yesterday', '- sjb')">Uren gisteren</button>
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/180RV6tbDCHuyVHSkzgAcBBODCt0T-kHqzloZ1lIfAh4/edit?gid=0#gid=0', '_blank')">Worksheet</button>
       </div></div>
-
       <div class="card"><div class="label">Ejla</div><div class="buttons">
         <button class="action-button" onclick="openReport('- sep', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- sep', 'yesterday')">Gisteren</button>
@@ -233,7 +240,6 @@
         <button class="action-button" onclick="openHourly('yesterday', '- sep')">Uren gisteren</button>
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1cTfYY5fipXojhSludGEsQxCj1KFqd_LOs4N0Hol65ms/edit?gid=1426903825#gid=1426903825', '_blank')">Worksheet</button>
       </div></div>
-
       <div class="card"><div class="label">Lukas</div><div class="buttons">
         <button class="action-button" onclick="openReport('- slj', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- slj', 'yesterday')">Gisteren</button>
@@ -241,7 +247,6 @@
         <button class="action-button" onclick="openHourly('yesterday', '- slj')">Uren gisteren</button>
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1wvIGj7297Bu8wQcpVVOaG2utARy8eRefxy3bu74DMwM/edit?gid=1426903825#gid=1426903825', '_blank')">Worksheet</button>
       </div></div>
-
       <div class="card"><div class="label">Sem</div><div class="buttons">
         <button class="action-button" onclick="openReport('- ssu', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- ssu', 'yesterday')">Gisteren</button>
@@ -249,7 +254,6 @@
         <button class="action-button" onclick="openHourly('yesterday', '- ssu')">Uren gisteren</button>
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1tTyKpfDfp2wTg6YKMhb4_glpierS7g5DKgp_hQaHVnY/edit?gid=1426903825', '_blank')">Worksheet</button>
       </div></div>
-
       <div class="card"><div class="label">Bram</div><div class="buttons">
         <button class="action-button" onclick="openReport('- sbl', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- sbl', 'yesterday')">Gisteren</button>
@@ -257,7 +261,6 @@
         <button class="action-button" onclick="openHourly('yesterday', '- sbl')">Uren gisteren</button>
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1Uu5XuNv0umFlDQmBOMBqBZVMgbevNQrL92ScAbcPvnU/edit?gid=1426903825#gid=1426903825', '_blank')">Worksheet</button>
       </div></div>
-
       <div class="card"><div class="label">Stijn</div><div class="buttons">
         <button class="action-button" onclick="openReport('- sss', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- sss', 'yesterday')">Gisteren</button>
@@ -265,7 +268,6 @@
         <button class="action-button" onclick="openHourly('yesterday', '- sss')">Uren gisteren</button>
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=346043053#gid=346043053', '_blank')">Worksheet</button>
       </div></div>
-
       <div class="card"><div class="label">Olaf</div><div class="buttons">
         <button class="action-button" onclick="openReport('- sod', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- sod', 'yesterday')">Gisteren</button>
@@ -273,7 +275,6 @@
         <button class="action-button" onclick="openHourly('yesterday', '- sod')">Uren gisteren</button>
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=1859757568#gid=1859757568', '_blank')">Worksheet</button>
       </div></div>
-
       <div class="card"><div class="label">Julian R</div><div class="buttons">
         <button class="action-button" onclick="openReport('- sjr', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- sjr', 'yesterday')">Gisteren</button>
@@ -291,7 +292,6 @@
         <button class="action-button" onclick="openHourly('yesterday', '- sse')">Uren gisteren</button>
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/15EI3EDCGKmq3Db42nmRfIGVjvSCMPdgJhY_3OQjHe6M/edit?gid=1426903825#gid=1426903825', '_blank')">Worksheet</button>
       </div></div>
-
       <div class="card"><div class="label">Giovanni</div><div class="buttons">
         <button class="action-button" onclick="openReport('- sgv', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- sgv', 'yesterday')">Gisteren</button>
@@ -299,7 +299,6 @@
         <button class="action-button" onclick="openHourly('yesterday', '- sgv')">Uren gisteren</button>
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1bGmd7204kBpp2iykwrZips_vQWluXp0F8SobE0UQHcE/edit?gid=1426903825#gid=1426903825', '_blank')">Worksheet</button>
       </div></div>
-
       <div class="card"><div class="label">Wouter</div><div class="buttons">
         <button class="action-button" onclick="openReport('- swb', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- swb', 'yesterday')">Gisteren</button>
@@ -307,7 +306,6 @@
         <button class="action-button" onclick="openHourly('yesterday', '- swb')">Uren gisteren</button>
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/14fbPQgc2CSWO7lOZ8rIibimqCK4bJ-G5uZZcPkgE_c0/edit?gid=1426903825', '_blank')">Worksheet</button>
       </div></div>
-
       <div class="card"><div class="label">Richard</div><div class="buttons">
         <button class="action-button" onclick="openReport('- srz', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- srz', 'yesterday')">Gisteren</button>
@@ -315,7 +313,6 @@
         <button class="action-button" onclick="openHourly('yesterday', '- srz')">Uren gisteren</button>
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/14QJVhBZnC0xV5TG7z9hvSjWHYMAESSB9uOShaAo5vWQ/edit?gid=1426903825', '_blank')">Worksheet</button>
       </div></div>
-
       <div class="card"><div class="label">Luc</div><div class="buttons">
         <button class="action-button" onclick="openReport('- slr', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- slr', 'yesterday')">Gisteren</button>
@@ -323,7 +320,6 @@
         <button class="action-button" onclick="openHourly('yesterday', '- slr')">Uren gisteren</button>
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1bG3-ah_-bTAC80xX9B83OkjMEBvZsnc3qPlhteLBnrw/edit?gid=1426903825#gid=1426903825', '_blank')">Worksheet</button>
       </div></div>
-
       <div class="card"><div class="label">Sander</div><div class="buttons">
         <button class="action-button" onclick="openReport('- sst', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- sst', 'yesterday')">Gisteren</button>
@@ -331,7 +327,6 @@
         <button class="action-button" onclick="openHourly('yesterday', '- sst')">Uren gisteren</button>
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=1864549719#gid=1864549719', '_blank')">Worksheet</button>
       </div></div>
-
       <div class="card"><div class="label">Owen</div><div class="buttons">
         <button class="action-button" onclick="openReport('- sow', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- sow', 'yesterday')">Gisteren</button>
@@ -339,7 +334,6 @@
         <button class="action-button" onclick="openHourly('yesterday', '- sow')">Uren gisteren</button>
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=1426903825#gid=1426903825', '_blank')">Worksheet</button>
       </div></div>
-
       <div class="card"><div class="label">Kevin</div><div class="buttons">
         <button class="action-button" onclick="openReport('- sks', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- sks', 'yesterday')">Gisteren</button>
@@ -347,7 +341,6 @@
         <button class="action-button" onclick="openHourly('yesterday', '- sks')">Uren gisteren</button>
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=438204544#gid=438204544', '_blank')">Worksheet</button>
       </div></div>
-
       <div class="card"><div class="label">Lotte</div><div class="buttons">
         <button class="action-button" onclick="openReport('- slh', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- slh', 'yesterday')">Gisteren</button>
@@ -396,9 +389,6 @@
       } else if (range === 'yesterday') {
         const gisteren = new Date(nu.getTime() - 86400000);
         dateStart = dateEnd = formatDate(gisteren);
-      } else {
-        alert('Onbekend bereik voor hourly view.');
-        return;
       }
 
       let url = `https://rocket.maximizer.io/stats?dateStart=${dateStart}&dateEnd=${dateEnd}`;
@@ -414,111 +404,68 @@
       window.open(url, '_blank');
     }
 
+    function toggleDarkMode() {
+      const isDark = document.body.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      updateThemeToggleLabel();
+    }
+
     function updateThemeToggleLabel() {
       const btn = document.getElementById('themeToggleBtn');
       if (!btn) return;
-      const isDark = document.body.classList.contains('dark');
-      btn.textContent = isDark ? '☀️  Lichte modus' : '🌙 Donkere modus';
-    }
-
-    function toggleDarkMode() {
-      const isDark = document.body.classList.toggle('dark');
-      try {
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      } catch (e) { }
-      updateThemeToggleLabel();
+      btn.textContent = document.body.classList.contains('dark') ? '☀️ Lichte modus' : '🌙 Donkere modus';
     }
 
     function applyThemeFromStorage() {
-      try {
-        const saved = localStorage.getItem('theme');
-        const isDark = saved === 'dark';
-        document.body.classList.toggle('dark', isDark);
-      } catch (e) { }
+      const saved = localStorage.getItem('theme');
+      document.body.classList.toggle('dark', saved === 'dark');
       updateThemeToggleLabel();
     }
-
-    (function() {
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', applyThemeFromStorage);
-      } else {
-        applyThemeFromStorage();
-      }
-    })();
-
-    function toISO(dateStr) {
-      if (!dateStr) return null;
-      return dateStr;
-    }
+    applyThemeFromStorage();
 
     function openReportWithDates(campagne, dateStart, dateEnd, isId = false) {
       if (!dateStart || !dateEnd) {
         alert('Kies zowel een start- als einddatum.');
         return;
       }
-      
       let url = `https://rocket.maximizer.io/stats?dateStart=${dateStart}&dateEnd=${dateEnd}`;
-      
       let dimensions = "campaignName,campaignID,campaignStatus,adsetDailyBudget";
-      if (dateStart !== dateEnd) {
-        dimensions = "date," + dimensions;
-      }
-      
-      url += `&dimensions=${dimensions}`;
-      url += `&metrics=cpa,rpc,spend,revenue,profit,roi`;
-      
-      if (campagne) {
-        url += isId ? `&filter=campaignID:eq:${campagne}` : `&filter=campaignName:cn:${campagne}`;
-      }
-      
+      if (dateStart !== dateEnd) dimensions = "date," + dimensions;
+      url += `&dimensions=${dimensions}&metrics=cpa,rpc,spend,revenue,profit,roi`;
+      if (campagne) url += isId ? `&filter=campaignID:eq:${campagne}` : `&filter=campaignName:cn:${campagne}`;
       let sortField = (dateStart !== dateEnd) ? "-date" : "-profit";
       url += `&filter=spend:gt:1&sort=${sortField}&style=flat`;
-      
       window.open(url, '_blank');
     }
 
     function handleOpenCustomAll() {
-      const from = toISO(document.getElementById('fromDate').value);
-      const to = toISO(document.getElementById('toDate').value);
+      const from = document.getElementById('fromDate').value;
+      const to = document.getElementById('toDate').value;
       openReportWithDates('', from, to);
     }
 
     function handleSearchCampaign() {
       const input = document.getElementById('campaignQuery');
       const q = (input.value || '').trim();
-      if (!q) { alert('Voer een campagnenaam in.'); return; }
-      const from = toISO(document.getElementById('fromDate').value);
-      const to = toISO(document.getElementById('toDate').value);
-      
-      if (from && to) {
-        openReportWithDates(q, from, to);
-      } else {
-        openReport(q, 'yesterday');
-      }
+      if (!q) return;
+      const from = document.getElementById('fromDate').value;
+      const to = document.getElementById('toDate').value;
+      if (from && to) openReportWithDates(q, from, to); else openReport(q, 'yesterday');
       input.value = '';
     }
 
     function handleSearchById() {
       const input = document.getElementById('campaignIdQuery');
       const q = (input.value || '').trim();
-      if (!q) { alert('Voer een Campaign ID in.'); return; }
-      const from = toISO(document.getElementById('fromDate').value);
-      const to = toISO(document.getElementById('toDate').value);
-      
-      if (from && to) {
-        openReportWithDates(q, from, to, true);
-      } else {
-        openReport(q, 'yesterday', true);
-      }
+      if (!q) return;
+      const from = document.getElementById('fromDate').value;
+      const to = document.getElementById('toDate').value;
+      if (from && to) openReportWithDates(q, from, to, true); else openReport(q, 'yesterday', true);
       input.value = '';
     }
 
-    document.getElementById('campaignQuery').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') { e.preventDefault(); handleSearchCampaign(); }
-    });
-    document.getElementById('campaignIdQuery').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') { e.preventDefault(); handleSearchById(); }
-    });
+    document.getElementById('campaignQuery').addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSearchCampaign(); });
+    document.getElementById('campaignIdQuery').addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSearchById(); });
   </script>
 </div>
 </body>
