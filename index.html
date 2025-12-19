@@ -138,6 +138,12 @@
       margin: 0;
     }
 
+    .search-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
     .two-col {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -162,20 +168,24 @@
 
   <div class="card">
     <div class="buttons inline-row">
-      <div class="inline-row">
-        <div class="inline-row">
+      <div class="inline-row" style="margin-right: 20px; border-right: 1px solid #ccc; padding-right: 20px;">
           <span>Periode:</span>
           <input id="fromDate" type="date"/>
           <span>t/m</span>
           <input id="toDate" type="date"/>
           <button class="action-button" onclick="handleOpenCustomAll()">Open (alle campagnes)</button>
-        </div>
       </div>
-      <div class="inline-row">
+      
+      <div class="search-stack">
         <div class="inline-row">
-          <span>Campagne zoeken:</span>
-          <input id="campaignQuery" type="text" placeholder="Voer (deel van) campagnenaam in" style="min-width:280px;padding:6px;border-radius:5px;border:1px solid #ccc; background: var(--card-color); color: var(--text-color);" />
-          <button class="action-button" onclick="handleSearchCampaign()">Zoek</button>
+          <span style="min-width: 120px;">Naam zoeken:</span>
+          <input id="campaignQuery" type="text" placeholder="Voer campagnenaam in" style="min-width:280px;" />
+          <button class="action-button" onclick="handleSearchCampaign()">Zoek op Naam</button>
+        </div>
+        <div class="inline-row">
+          <span style="min-width: 120px;">ID zoeken:</span>
+          <input id="campaignIdQuery" type="text" placeholder="Voer Campaign ID in" style="min-width:280px;" />
+          <button class="action-button" onclick="handleSearchById()">Zoek op ID</button>
         </div>
       </div>
     </div>
@@ -348,7 +358,7 @@
       return date.toISOString().slice(0, 10);
     }
 
-    function openReport(campagne, range) {
+    function openReport(campagne, range, isId = false) {
       const nu = new Date();
       let dateStart, dateEnd;
 
@@ -364,7 +374,7 @@
       url += `&metrics=cpa,rpc,spend,revenue,profit,roi`;
 
       if (campagne) {
-        url += `&filter=campaignName:cn:${campagne}`;
+        url += isId ? `&filter=campaignID:eq:${campagne}` : `&filter=campaignName:cn:${campagne}`;
       }
 
       url += `&filter=spend:gt:1&sort=-profit&style=flat`;
@@ -436,8 +446,7 @@
       return dateStr;
     }
 
-    // AANGEPAST: Voegt 'date' dimensie toe als er meerdere dagen zijn geselecteerd
-    function openReportWithDates(campagne, dateStart, dateEnd) {
+    function openReportWithDates(campagne, dateStart, dateEnd, isId = false) {
       if (!dateStart || !dateEnd) {
         alert('Kies zowel een start- als einddatum.');
         return;
@@ -445,7 +454,6 @@
       
       let url = `https://rocket.maximizer.io/stats?dateStart=${dateStart}&dateEnd=${dateEnd}`;
       
-      // Bepaal de dimensies. Als het bereik meer dan 1 dag is, voeg 'date' toe.
       let dimensions = "campaignName,campaignID,campaignStatus,adsetDailyBudget";
       if (dateStart !== dateEnd) {
         dimensions = "date," + dimensions;
@@ -455,10 +463,9 @@
       url += `&metrics=cpa,rpc,spend,revenue,profit,roi`;
       
       if (campagne) {
-        url += `&filter=campaignName:cn:${campagne}`;
+        url += isId ? `&filter=campaignID:eq:${campagne}` : `&filter=campaignName:cn:${campagne}`;
       }
       
-      // Sorteer op datum (nieuwste boven) als er meerdere dagen zijn, anders op winst.
       let sortField = (dateStart !== dateEnd) ? "-date" : "-profit";
       url += `&filter=spend:gt:1&sort=${sortField}&style=flat`;
       
@@ -474,33 +481,40 @@
     function handleSearchCampaign() {
       const input = document.getElementById('campaignQuery');
       const q = (input.value || '').trim();
-      if (!q) {
-        alert('Voer een campagnenaam of deel daarvan in.');
-        input.focus();
-        return;
-      }
+      if (!q) { alert('Voer een campagnenaam in.'); return; }
       const from = toISO(document.getElementById('fromDate').value);
       const to = toISO(document.getElementById('toDate').value);
+      
       if (from && to) {
         openReportWithDates(q, from, to);
       } else {
         openReport(q, 'yesterday');
       }
       input.value = '';
-      input.focus();
     }
 
-    (function() {
-      var inp = document.getElementById('campaignQuery');
-      if (inp) {
-        inp.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            handleSearchCampaign();
-          }
-        });
+    function handleSearchById() {
+      const input = document.getElementById('campaignIdQuery');
+      const q = (input.value || '').trim();
+      if (!q) { alert('Voer een Campaign ID in.'); return; }
+      const from = toISO(document.getElementById('fromDate').value);
+      const to = toISO(document.getElementById('toDate').value);
+      
+      if (from && to) {
+        openReportWithDates(q, from, to, true);
+      } else {
+        openReport(q, 'yesterday', true);
       }
-    })();
+      input.value = '';
+    }
+
+    // Enter-key support voor beide zoekvelden
+    document.getElementById('campaignQuery').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); handleSearchCampaign(); }
+    });
+    document.getElementById('campaignIdQuery').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); handleSearchById(); }
+    });
   </script>
 </div>
 </body>
