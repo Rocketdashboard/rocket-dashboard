@@ -46,10 +46,6 @@
       margin: 0;
     }
 
-    .toggle-container {
-      position: static;
-    }
-
     .toggle-container button {
       background: none;
       border: 1px solid var(--text-color);
@@ -71,7 +67,7 @@
     .card .label {
       font-size: 16px;
       font-weight: bold;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
 
     .buttons {
@@ -98,10 +94,10 @@
       background: var(--button-hover);
     }
 
-    /* Zoeksectie styling */
+    /* --- Verbeterde Uitlijning Zoeksectie --- */
     .top-controls {
       display: flex;
-      align-items: flex-start;
+      align-items: center; /* Verticaal centreren */
       gap: 30px;
     }
 
@@ -110,9 +106,8 @@
       border-right: 1px solid #ccc;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      min-height: 85px;
-      justify-content: center;
+      gap: 12px;
+      flex-shrink: 0; /* Voorkomt dat kalender sectie kleiner wordt */
     }
 
     .search-stack {
@@ -125,16 +120,23 @@
     .inline-row {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .fixed-label {
-      min-width: 100px;
+      min-width: 130px; /* Zorgt dat inputs op dezelfde lijn beginnen */
       font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .search-input {
+      flex-grow: 1;
+      max-width: 350px; /* Voorkomt dat ze té breed worden op grote schermen */
     }
 
     .search-button {
-      min-width: 140px;
+      min-width: 140px; /* Beide buttons exact even breed */
+      text-align: center;
     }
 
     input[type="date"], input[type="text"] {
@@ -142,21 +144,29 @@
       font-size: 14px;
       color: var(--text-color);
       background: var(--card-color);
-      padding: 6px 8px;
+      padding: 6px 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
+      outline: none;
     }
 
-    @media (max-width: 950px) {
+    input:focus {
+      border-color: var(--button-color);
+    }
+
+    @media (max-width: 1000px) {
       .top-controls {
         flex-direction: column;
+        align-items: stretch;
       }
       .calendar-section {
         border-right: none;
         padding-right: 0;
         border-bottom: 1px solid #ccc;
         padding-bottom: 20px;
-        width: 100%;
+      }
+      .fixed-label {
+        min-width: 110px;
       }
     }
 
@@ -193,12 +203,12 @@
       <div class="search-stack">
         <div class="inline-row">
           <span class="fixed-label">Campaign Name:</span>
-          <input id="campaignQuery" type="text" placeholder="Voer campaign name in" style="flex-grow:1; max-width: 300px;" />
+          <input id="campaignQuery" class="search-input" type="text" placeholder="Voer campaign name in" />
           <button class="action-button search-button" onclick="handleSearchCampaign()">Zoek op naam</button>
         </div>
         <div class="inline-row">
           <span class="fixed-label">Campaign ID:</span>
-          <input id="campaignIdQuery" type="text" placeholder="Voer campaign id in" style="flex-grow:1; max-width: 300px;" />
+          <input id="campaignIdQuery" class="search-input" type="text" placeholder="Voer campaign id in" />
           <button class="action-button search-button" onclick="handleSearchById()">Zoek op ID</button>
         </div>
       </div>
