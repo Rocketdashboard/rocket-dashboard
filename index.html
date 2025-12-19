@@ -92,6 +92,11 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
+    /* Specifieke breedte voor de zoekknoppen zodat ze gelijk zijn */
+    .search-button {
+      min-width: 140px;
+    }
+
     button.action-button:hover {
       transform: translateY(-1px);
       box-shadow: 0 4px 8px rgba(0,0,0,0.15);
@@ -180,12 +185,12 @@
         <div class="inline-row">
           <span style="min-width: 120px;">Naam zoeken:</span>
           <input id="campaignQuery" type="text" placeholder="Voer campagnenaam in" style="min-width:280px;" />
-          <button class="action-button" onclick="handleSearchCampaign()">Zoek op Naam</button>
+          <button class="action-button search-button" onclick="handleSearchCampaign()">Zoek op Naam</button>
         </div>
         <div class="inline-row">
           <span style="min-width: 120px;">ID zoeken:</span>
           <input id="campaignIdQuery" type="text" placeholder="Voer Campaign ID in" style="min-width:280px;" />
-          <button class="action-button" onclick="handleSearchById()">Zoek op ID</button>
+          <button class="action-button search-button" onclick="handleSearchById()">Zoek op ID</button>
         </div>
       </div>
     </div>
@@ -508,7 +513,6 @@
       input.value = '';
     }
 
-    // Enter-key support voor beide zoekvelden
     document.getElementById('campaignQuery').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') { e.preventDefault(); handleSearchCampaign(); }
     });
