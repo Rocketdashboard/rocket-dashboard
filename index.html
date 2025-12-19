@@ -103,11 +103,9 @@
         flex-direction: column;
         align-items: stretch;
       }
-
       .buttons button {
         width: 100%;
       }
-
       .header-row {
         flex-direction: column;
         align-items: flex-start;
@@ -115,32 +113,42 @@
       }
     }
   
-.card.hero .label {
-  text-align: center;
-}
-.card.hero .buttons {
-  justify-content: center;
-}
+    .card.hero .label {
+      text-align: center;
+    }
+    .card.hero .buttons {
+      justify-content: center;
+    }
 
-/* Ensure inputs use the same font & colors as the app */
-input[type="date"], input[type="text"] {
-  font-family: inherit;
-  font-size: 14px;
-  color: var(--text-color);
-  background: var(--card-color);
-  padding: 6px 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
+    input[type="date"], input[type="text"] {
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text-color);
+      background: var(--card-color);
+      padding: 6px 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
 
-/* Controls: align neatly in a single vertical stack with consistent spacing */
-.card .buttons .inline-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  margin: 0; /* remove extra top margins */
-}
+    .card .buttons .inline-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin: 0;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .col {
+      display: block;
+    }
+    @media (max-width: 900px) {
+      .two-col { grid-template-columns: 1fr; }
+    }
 </style>
 </head>
 <body>
@@ -184,20 +192,6 @@ input[type="date"], input[type="text"] {
       <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/14J5aJfmYfS1kykiIfzA0hTG3UHz80r2MyHcicfTacws/edit?gid=118875398#gid=118875398', '_blank')">Informationsheet</button>
     </div>
   </div>
-
-  <style>
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    .col {
-      display: block;
-    }
-    @media (max-width: 900px) {
-      .two-col { grid-template-columns: 1fr; }
-    }
-  </style>
 
   <div class="two-col">
     <div class="col">
@@ -378,7 +372,6 @@ input[type="date"], input[type="text"] {
       window.open(url, '_blank');
     }
 
-    // NIEUW: Hourly weergave vandaag/gisteren
     function openHourly(range, campagne = '') {
       const nu = new Date();
       let dateStart, dateEnd;
@@ -401,7 +394,6 @@ input[type="date"], input[type="text"] {
         url += `&filter=campaignName:cn:${campagne}`;
       }
 
-      // zoals je voorbeeld: filter spend>1, sort op uur, flat style
       url += `&filter=spend:gt:1&sort=hour&style=flat`;
 
       window.open(url, '_blank');
@@ -418,7 +410,7 @@ input[type="date"], input[type="text"] {
       const isDark = document.body.classList.toggle('dark');
       try {
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      } catch (e) { /* localStorage kan geblokkeerd zijn; negeren */ }
+      } catch (e) { }
       updateThemeToggleLabel();
     }
 
@@ -426,13 +418,11 @@ input[type="date"], input[type="text"] {
       try {
         const saved = localStorage.getItem('theme');
         const isDark = saved === 'dark';
-        // Standaard is licht (geen auto-detect), dus alleen togglen als opgeslagen 'dark' is
         document.body.classList.toggle('dark', isDark);
-      } catch (e) { /* geen localStorage beschikbaar */ }
+      } catch (e) { }
       updateThemeToggleLabel();
     }
 
-    // Init na DOM load
     (function() {
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', applyThemeFromStorage);
@@ -446,18 +436,32 @@ input[type="date"], input[type="text"] {
       return dateStr;
     }
 
+    // AANGEPAST: Voegt 'date' dimensie toe als er meerdere dagen zijn geselecteerd
     function openReportWithDates(campagne, dateStart, dateEnd) {
       if (!dateStart || !dateEnd) {
         alert('Kies zowel een start- als einddatum.');
         return;
       }
+      
       let url = `https://rocket.maximizer.io/stats?dateStart=${dateStart}&dateEnd=${dateEnd}`;
-      url += `&dimensions=campaignName,campaignID,campaignStatus,adsetDailyBudget`;
+      
+      // Bepaal de dimensies. Als het bereik meer dan 1 dag is, voeg 'date' toe.
+      let dimensions = "campaignName,campaignID,campaignStatus,adsetDailyBudget";
+      if (dateStart !== dateEnd) {
+        dimensions = "date," + dimensions;
+      }
+      
+      url += `&dimensions=${dimensions}`;
       url += `&metrics=cpa,rpc,spend,revenue,profit,roi`;
+      
       if (campagne) {
         url += `&filter=campaignName:cn:${campagne}`;
       }
-      url += `&filter=spend:gt:1&sort=-profit&style=flat`;
+      
+      // Sorteer op datum (nieuwste boven) als er meerdere dagen zijn, anders op winst.
+      let sortField = (dateStart !== dateEnd) ? "-date" : "-profit";
+      url += `&filter=spend:gt:1&sort=${sortField}&style=flat`;
+      
       window.open(url, '_blank');
     }
 
@@ -480,15 +484,12 @@ input[type="date"], input[type="text"] {
       if (from && to) {
         openReportWithDates(q, from, to);
       } else {
-        // standaard gedrag bij geen datum: open daily rapport voor vandaag
         openReport(q, 'yesterday');
       }
-      // Na zoeken: maak het veld leeg en focus terug op de zoekbalk
       input.value = '';
       input.focus();
     }
 
-    // Enter-ondersteuning in het zoekveld
     (function() {
       var inp = document.getElementById('campaignQuery');
       if (inp) {
