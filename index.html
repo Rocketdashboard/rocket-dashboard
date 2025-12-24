@@ -56,6 +56,10 @@
       border-radius: 5px; 
       transition: all 0.2s ease; 
       box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+      height: 35px;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
     }
     button.action-button:hover { 
       transform: translateY(-1px); 
@@ -63,17 +67,21 @@
       background: var(--button-hover); 
     }
     
+    /* Gecorrigeerde refresh button */
     .refresh-btn { 
       background: none; 
-      border: none; 
+      border: 1px solid #ccc; 
       cursor: pointer; 
       font-size: 18px; 
       color: var(--text-color); 
-      padding: 4px 8px; 
-      border-radius: 4px; 
-      display: flex; 
+      padding: 0 8px; 
+      border-radius: 5px; 
+      display: inline-flex; 
       align-items: center; 
-      justify-content: center; 
+      justify-content: center;
+      height: 35px; /* Exact even hoog als de datumvelden */
+      box-sizing: border-box;
+      transition: background 0.2s;
     }
     .refresh-btn:hover { background: rgba(0,0,0,0.1); }
     
@@ -90,7 +98,9 @@
     .inline-row { display: flex; align-items: center; gap: 12px; }
     .fixed-label { min-width: 130px; font-weight: 500; white-space: nowrap; }
     .search-input { flex-grow: 1; max-width: 350px; }
-    .search-button { min-width: 140px; text-align: center; }
+    .search-button { min-width: 140px; text-align: center; justify-content: center; }
+    
+    /* Gecorrigeerde inputs */
     input[type="date"], input[type="text"] { 
       font-family: inherit; 
       font-size: 14px; 
@@ -99,7 +109,9 @@
       padding: 6px 10px; 
       border: 1px solid #ccc; 
       border-radius: 5px; 
-      outline: none; 
+      outline: none;
+      height: 35px; /* Vaste hoogte voor uitlijning */
+      box-sizing: border-box;
     }
 
     @media (max-width: 1100px) { 
@@ -129,7 +141,7 @@
           <input id="toDate" type="date"/>
           <button class="refresh-btn" onclick="resetFilters()" title="Filters wissen">🔄</button>
         </div>
-        <button class="action-button" onclick="handleOpenCustomAll()">Open (alle campagnes)</button>
+        <button class="action-button" onclick="handleOpenCustomAll()" style="justify-content: center;">Open (alle campagnes)</button>
       </div>
       <div class="search-stack">
         <div class="inline-row">
