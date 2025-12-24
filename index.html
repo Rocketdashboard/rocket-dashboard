@@ -67,23 +67,31 @@
       background: var(--button-hover); 
     }
     
-    /* Gecorrigeerde refresh button */
     .refresh-btn { 
       background: none; 
-      border: 1px solid #ccc; 
+      border: none; 
       cursor: pointer; 
-      font-size: 18px; 
+      font-size: 22px; 
       color: var(--text-color); 
-      padding: 0 8px; 
-      border-radius: 5px; 
+      padding: 0 5px; 
       display: inline-flex; 
       align-items: center; 
       justify-content: center;
-      height: 35px; /* Exact even hoog als de datumvelden */
+      height: 35px; 
+      line-height: 1;
       box-sizing: border-box;
-      transition: background 0.2s;
+      vertical-align: middle;
+      transition: transform 0.2s;
     }
-    .refresh-btn:hover { background: rgba(0,0,0,0.1); }
+    .refresh-btn:active { transform: scale(0.9); }
+    
+    .spin-animation {
+      animation: spin 0.6s ease-in-out;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
     
     .top-controls { display: flex; align-items: center; gap: 30px; }
     .calendar-section { 
@@ -100,7 +108,6 @@
     .search-input { flex-grow: 1; max-width: 350px; }
     .search-button { min-width: 140px; text-align: center; justify-content: center; }
     
-    /* Gecorrigeerde inputs */
     input[type="date"], input[type="text"] { 
       font-family: inherit; 
       font-size: 14px; 
@@ -110,7 +117,7 @@
       border: 1px solid #ccc; 
       border-radius: 5px; 
       outline: none;
-      height: 35px; /* Vaste hoogte voor uitlijning */
+      height: 35px; 
       box-sizing: border-box;
     }
 
@@ -139,7 +146,7 @@
           <input id="fromDate" type="date"/>
           <span>t/m</span>
           <input id="toDate" type="date"/>
-          <button class="refresh-btn" onclick="resetFilters()" title="Filters wissen">🔄</button>
+          <button id="refreshBtn" class="refresh-btn" onclick="resetFilters()" title="Filters wissen">🔄</button>
         </div>
         <button class="action-button" onclick="handleOpenCustomAll()" style="justify-content: center;">Open (alle campagnes)</button>
       </div>
@@ -316,10 +323,17 @@
     }
 
     function resetFilters() {
+      const btn = document.getElementById('refreshBtn');
+      btn.classList.add('spin-animation');
+      
       document.getElementById('fromDate').value = '';
       document.getElementById('toDate').value = '';
       document.getElementById('campaignQuery').value = '';
       document.getElementById('campaignIdQuery').value = '';
+      
+      setTimeout(() => {
+        btn.classList.remove('spin-animation');
+      }, 600);
     }
 
     function openReport(campagne, range, isId = false) {
