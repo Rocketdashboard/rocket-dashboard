@@ -24,10 +24,33 @@
       background: var(--bg-color); 
       color: var(--text-color); 
       transition: background 0.3s, color 0.3s; 
+      overflow-x: hidden; /* Voorkomt scrollbars tijdens raket-animatie */
     }
     .container { max-width: 1200px; margin: 0 auto; position: relative; }
     .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-    h1 { font-size: 28px; margin: 0; }
+    h1 { font-size: 28px; margin: 0; display: flex; align-items: center; gap: 10px; }
+    
+    /* Raket Animatie Styling */
+    #rocket-emoji { 
+      display: inline-block; 
+      cursor: pointer; 
+      transition: transform 0.2s;
+    }
+    #rocket-emoji:hover { transform: scale(1.2); }
+
+    .rocket-launch {
+      animation: launch 1.5s forwards;
+    }
+
+    @keyframes launch {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      20% { transform: translateY(10px) rotate(0deg); }
+      40% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+      41% { opacity: 0; }
+      70% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    }
+
     .toggle-container button { 
       background: none; 
       border: 1px solid var(--text-color); 
@@ -132,7 +155,7 @@
 <body>
 <div class="container">
   <div class="header-row">
-    <h1>🚀 Rocket Rapporten</h1>
+    <h1><span id="rocket-emoji" onclick="launchRocket()">🚀</span> Rocket Rapporten</h1>
     <div class="toggle-container">
       <button id="themeToggleBtn" onclick="toggleDarkMode()">🌙 Donkere modus</button>
     </div>
@@ -312,6 +335,15 @@
   </div>
 
   <script>
+    function launchRocket() {
+      const rocket = document.getElementById('rocket-emoji');
+      rocket.classList.add('rocket-launch');
+      // Verwijder de class na de animatie om hem opnieuw te kunnen gebruiken
+      setTimeout(() => {
+        rocket.classList.remove('rocket-launch');
+      }, 1500);
+    }
+
     function formatDate(date) { return date.toISOString().slice(0, 10); }
 
     function openD2D() {
