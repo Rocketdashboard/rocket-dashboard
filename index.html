@@ -75,7 +75,7 @@
         </div>
         <div class="inline-row">
           <span class="fixed-label">Sheet Zoeker:</span>
-          <input id="sheetQuery" class="search-input" type="text" placeholder="Voer identifier in (bijv. sjh_health...)" />
+          <input id="sheetQuery" class="search-input" type="text" placeholder="Voer identifier in" />
           <button class="action-button search-button" onclick="goToSheet()">Open Sheet</button>
         </div>
       </div>
@@ -132,6 +132,34 @@
         <button class="action-button" onclick="openHourly('yesterday', '- ssu')">Uren gisteren</button>
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1tTyKpfDfp2wTg6YKMhb4_glpierS7g5DKgp_hQaHVnY/edit?gid=1426903825', '_blank')">Worksheet</button>
       </div></div>
+      <div class="card"><div class="label">Bram</div><div class="buttons">
+        <button class="action-button" onclick="openReport('- sbl', 'today')">Vandaag</button>
+        <button class="action-button" onclick="openReport('- sbl', 'yesterday')">Gisteren</button>
+        <button class="action-button" onclick="openHourly('today', '- sbl')">Uren vandaag</button>
+        <button class="action-button" onclick="openHourly('yesterday', '- sbl')">Uren gisteren</button>
+        <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1Uu5XuNv0umFlDQmBOMBqBZVMgbevNQrL92ScAbcPvnU/edit?gid=1426903825#gid=1426903825', '_blank')">Worksheet</button>
+      </div></div>
+      <div class="card"><div class="label">Stijn</div><div class="buttons">
+        <button class="action-button" onclick="openReport('- sss', 'today')">Vandaag</button>
+        <button class="action-button" onclick="openReport('- sss', 'yesterday')">Gisteren</button>
+        <button class="action-button" onclick="openHourly('today', '- sss')">Uren vandaag</button>
+        <button class="action-button" onclick="openHourly('yesterday', '- sss')">Uren gisteren</button>
+        <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=346043053#gid=346043053', '_blank')">Worksheet</button>
+      </div></div>
+      <div class="card"><div class="label">Olaf</div><div class="buttons">
+        <button class="action-button" onclick="openReport('- sod', 'today')">Vandaag</button>
+        <button class="action-button" onclick="openReport('- sod', 'yesterday')">Gisteren</button>
+        <button class="action-button" onclick="openHourly('today', '- sod')">Uren vandaag</button>
+        <button class="action-button" onclick="openHourly('yesterday', '- sod')">Uren gisteren</button>
+        <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=1859757568#gid=1859757568', '_blank')">Worksheet</button>
+      </div></div>
+      <div class="card"><div class="label">Julian R</div><div class="buttons">
+        <button class="action-button" onclick="openReport('- sjr', 'today')">Vandaag</button>
+        <button class="action-button" onclick="openReport('- sjr', 'yesterday')">Gisteren</button>
+        <button class="action-button" onclick="openHourly('today', '- sjr')">Uren vandaag</button>
+        <button class="action-button" onclick="openHourly('yesterday', '- sjr')">Uren gisteren</button>
+        <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=1258505811#gid=1258505811', '_blank')">Worksheet</button>
+      </div></div>
     </div>
     <div class="col">
       <div class="card"><div class="label">Sebastian</div><div class="buttons">
@@ -153,20 +181,54 @@
         <button class="action-button" onclick="openReport('- swb', 'yesterday')">Gisteren</button>
         <button class="action-button" onclick="openHourly('today', '- swb')">Uren vandaag</button>
         <button class="action-button" onclick="openHourly('yesterday', '- swb')">Uren gisteren</button>
-        <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/14fbPQgc2CSWO7lOZ8rIibimqCK4bJ-G5uZZcPkgE_c0/edit?gid=1426903825', '_blank')">Worksheet</button>
+        <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/14fbPQgc2CSWO7lOZ8rIibimqCK4bJ-G5uZZcPkgE_c0/edit?gid=1426903825#gid=1426903825', '_blank')">Worksheet</button>
       </div></div>
       <div class="card"><div class="label">Richard</div><div class="buttons">
         <button class="action-button" onclick="openReport('- srz', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- srz', 'yesterday')">Gisteren</button>
         <button class="action-button" onclick="openHourly('today', '- srz')">Uren vandaag</button>
         <button class="action-button" onclick="openHourly('yesterday', '- srz')">Uren gisteren</button>
-        <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/14QJVhBZnC0xV5TG7z9hvSjWHYMAESSB9uOShaAo5vWQ/edit?gid=1426903825', '_blank')">Worksheet</button>
+        <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/14QJVhBZnC0xV5TG7z9hvSjWHYMAESSB9uOShaAo5vWQ/edit?gid=1426903825#gid=1426903825', '_blank')">Worksheet</button>
+      </div></div>
+      <div class="card"><div class="label">Luc</div><div class="buttons">
+        <button class="action-button" onclick="openReport('- slr', 'today')">Vandaag</button>
+        <button class="action-button" onclick="openReport('- slr', 'yesterday')">Gisteren</button>
+        <button class="action-button" onclick="openHourly('today', '- slr')">Uren vandaag</button>
+        <button class="action-button" onclick="openHourly('yesterday', '- slr')">Uren gisteren</button>
+        <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1bG3-ah_-bTAC80xX9B83OkjMEBvZsnc3qPlhteLBnrw/edit?gid=1426903825#gid=1426903825', '_blank')">Worksheet</button>
+      </div></div>
+      <div class="card"><div class="label">Sander</div><div class="buttons">
+        <button class="action-button" onclick="openReport('- sst', 'today')">Vandaag</button>
+        <button class="action-button" onclick="openReport('- sst', 'yesterday')">Gisteren</button>
+        <button class="action-button" onclick="openHourly('today', '- sst')">Uren vandaag</button>
+        <button class="action-button" onclick="openHourly('yesterday', '- sst')">Uren gisteren</button>
+        <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=1864549719#gid=1864549719', '_blank')">Worksheet</button>
+      </div></div>
+      <div class="card"><div class="label">Owen</div><div class="buttons">
+        <button class="action-button" onclick="openReport('- sow', 'today')">Vandaag</button>
+        <button class="action-button" onclick="openReport('- sow', 'yesterday')">Gisteren</button>
+        <button class="action-button" onclick="openHourly('today', '- sow')">Uren vandaag</button>
+        <button class="action-button" onclick="openHourly('yesterday', '- sow')">Uren gisteren</button>
+        <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=1426903825#gid=1426903825', '_blank')">Worksheet</button>
+      </div></div>
+      <div class="card"><div class="label">Kevin</div><div class="buttons">
+        <button class="action-button" onclick="openReport('- sks', 'today')">Vandaag</button>
+        <button class="action-button" onclick="openReport('- sks', 'yesterday')">Gisteren</button>
+        <button class="action-button" onclick="openHourly('today', '- sks')">Uren vandaag</button>
+        <button class="action-button" onclick="openHourly('yesterday', '- sks')">Uren gisteren</button>
+        <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=438204544#gid=438204544', '_blank')">Worksheet</button>
+      </div></div>
+      <div class="card"><div class="label">Lotte</div><div class="buttons">
+        <button class="action-button" onclick="openReport('- slh', 'today')">Vandaag</button>
+        <button class="action-button" onclick="openReport('- slh', 'yesterday')">Gisteren</button>
+        <button class="action-button" onclick="openHourly('today', '- slh')">Uren vandaag</button>
+        <button class="action-button" onclick="openHourly('yesterday', '- slh')">Uren gisteren</button>
+        <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=328104916#gid=328104916', '_blank')">Worksheet</button>
       </div></div>
     </div>
   </div>
 
   <script>
-    // Sheet Map gebaseerd op je screenshot. Ik gebruik de hoofdpagina (1426903825) als default.
     const sheetMap = {
       "sjb": "https://docs.google.com/spreadsheets/d/180RV6tbDCHuyVHSkzgAcBBODCt0T-kHqzloZ1lIfAh4/edit?gid=1493191612#gid=1493191612",
       "sgv": "https://docs.google.com/spreadsheets/d/1bGmd7204kBpp2iykwrZips_vQWluXp0F8SobE0UQHcE/edit?gid=1426903825#gid=1426903825",
@@ -182,7 +244,7 @@
       "sow": "https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=1426903825#gid=1426903825",
       "sss": "https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=346043053#gid=346043053",
       "sst": "https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=1864549719#gid=1864549719",
-      "sks": "https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=328104916#gid=328104916",
+      "sks": "https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=438204544#gid=438204544",
       "sod": "https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=1859757568#gid=1859757568",
       "sjr": "https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=1258505811#gid=1258505811",
       "slr": "https://docs.google.com/spreadsheets/d/1bG3-ah_-bTAC80xX9B83OkjMEBvZsnc3qPlhteLBnrw/edit?gid=1426903825#gid=1426903825"
@@ -193,12 +255,8 @@
       if (!input) return;
       const id = input.substring(0, 3);
       const url = sheetMap[id];
-      if (url) { 
-        window.open(url, '_blank'); 
-        document.getElementById('sheetQuery').value = ''; // Veld leegmaken na succes
-      } else { 
-        alert("Identifier '" + id + "' niet gevonden in de database."); 
-      }
+      if (url) { window.open(url, '_blank'); document.getElementById('sheetQuery').value = ''; } 
+      else { alert("Identifier niet herkend."); }
     }
 
     function formatDate(date) { return date.toISOString().slice(0, 10); }
@@ -212,11 +270,7 @@
     }
 
     function resetFilters() {
-      document.getElementById('fromDate').value = '';
-      document.getElementById('toDate').value = '';
-      document.getElementById('campaignQuery').value = '';
-      document.getElementById('campaignIdQuery').value = '';
-      document.getElementById('sheetQuery').value = '';
+      document.querySelectorAll('input').forEach(input => input.value = '');
     }
 
     function openReport(campagne, range, isId = false) {
