@@ -4,39 +4,108 @@
 <link href="https://rocket.maximizer.io/favicon.png" rel="icon"/>
 <title>Rocket Rapporten</title>
 <style>
-    :root {
-      --bg-color: #f4f4f4; --text-color: #222; --card-color: #ffffff;
-      --button-color: #007bff; --button-hover: #0056b3;
+    :root { 
+      --bg-color: #f4f4f4; 
+      --text-color: #222; 
+      --card-color: #ffffff; 
+      --button-color: #007bff; 
+      --button-hover: #0056b3; 
     }
-    body.dark {
-      --bg-color: #1e1e1e; --text-color: #f1f1f1; --card-color: #2b2b2b;
-      --button-color: #3399ff; --button-hover: #1a75d1;
+    body.dark { 
+      --bg-color: #1e1e1e; 
+      --text-color: #f1f1f1; 
+      --card-color: #2b2b2b; 
+      --button-color: #3399ff; 
+      --button-hover: #1a75d1; 
     }
-    body { font-family: Arial, sans-serif; padding: 40px; background: var(--bg-color); color: var(--text-color); transition: background 0.3s, color 0.3s; }
+    body { 
+      font-family: Arial, sans-serif; 
+      padding: 40px; 
+      background: var(--bg-color); 
+      color: var(--text-color); 
+      transition: background 0.3s, color 0.3s; 
+    }
     .container { max-width: 1200px; margin: 0 auto; position: relative; }
     .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
     h1 { font-size: 28px; margin: 0; }
-    .toggle-container button { background: none; border: 1px solid var(--text-color); padding: 6px 12px; color: var(--text-color); cursor: pointer; border-radius: 5px; font-size: 14px; }
-    .card { background: var(--card-color); border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
+    .toggle-container button { 
+      background: none; 
+      border: 1px solid var(--text-color); 
+      padding: 6px 12px; 
+      color: var(--text-color); 
+      cursor: pointer; 
+      border-radius: 5px; 
+      font-size: 14px; 
+    }
+    .card { 
+      background: var(--card-color); 
+      border-radius: 8px; 
+      padding: 20px; 
+      margin-bottom: 20px; 
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08); 
+    }
     .card .label { font-size: 16px; font-weight: bold; margin-bottom: 12px; }
     .buttons { display: flex; flex-wrap: wrap; gap: 10px; }
-    button.action-button { padding: 8px 14px; font-size: 14px; cursor: pointer; border: none; background: var(--button-color); color: white; border-radius: 5px; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-    button.action-button:hover { transform: translateY(-1px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); background: var(--button-hover); }
+    button.action-button { 
+      padding: 8px 14px; 
+      font-size: 14px; 
+      cursor: pointer; 
+      border: none; 
+      background: var(--button-color); 
+      color: white; 
+      border-radius: 5px; 
+      transition: all 0.2s ease; 
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    }
+    button.action-button:hover { 
+      transform: translateY(-1px); 
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15); 
+      background: var(--button-hover); 
+    }
     
-    .refresh-btn { background: none; border: none; cursor: pointer; font-size: 18px; color: var(--text-color); padding: 4px 8px; border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .refresh-btn { 
+      background: none; 
+      border: none; 
+      cursor: pointer; 
+      font-size: 18px; 
+      color: var(--text-color); 
+      padding: 4px 8px; 
+      border-radius: 4px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+    }
     .refresh-btn:hover { background: rgba(0,0,0,0.1); }
-
+    
     .top-controls { display: flex; align-items: center; gap: 30px; }
-    .calendar-section { padding-right: 30px; border-right: 1px solid #ccc; display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+    .calendar-section { 
+      padding-right: 30px; 
+      border-right: 1px solid #ccc; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 12px; 
+      flex-shrink: 0; 
+    }
     .search-stack { display: flex; flex-direction: column; gap: 10px; flex-grow: 1; }
     .inline-row { display: flex; align-items: center; gap: 12px; }
     .fixed-label { min-width: 130px; font-weight: 500; white-space: nowrap; }
     .search-input { flex-grow: 1; max-width: 350px; }
     .search-button { min-width: 140px; text-align: center; }
-    
-    input[type="date"], input[type="text"] { font-family: inherit; font-size: 14px; color: var(--text-color); background: var(--card-color); padding: 6px 10px; border: 1px solid #ccc; border-radius: 5px; outline: none; }
+    input[type="date"], input[type="text"] { 
+      font-family: inherit; 
+      font-size: 14px; 
+      color: var(--text-color); 
+      background: var(--card-color); 
+      padding: 6px 10px; 
+      border: 1px solid #ccc; 
+      border-radius: 5px; 
+      outline: none; 
+    }
 
-    @media (max-width: 1100px) { .top-controls { flex-direction: column; align-items: stretch; } .calendar-section { border-right: none; border-bottom: 1px solid #ccc; padding-bottom: 20px; } }
+    @media (max-width: 1100px) { 
+      .top-controls { flex-direction: column; align-items: stretch; } 
+      .calendar-section { border-right: none; border-bottom: 1px solid #ccc; padding-bottom: 20px; } 
+    }
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
 </style>
@@ -73,11 +142,6 @@
           <input id="campaignIdQuery" class="search-input" type="text" placeholder="Voer campaign id in" />
           <button class="action-button search-button" onclick="handleSearchById()">Zoek op ID</button>
         </div>
-        <div class="inline-row">
-          <span class="fixed-label">Sheet Zoeker:</span>
-          <input id="sheetQuery" class="search-input" type="text" placeholder="Voer identifier in (bijv. sjh_health...)" />
-          <button class="action-button search-button" onclick="goToSheet()">Open Sheet</button>
-        </div>
       </div>
     </div>
   </div>
@@ -109,7 +173,7 @@
         <button class="action-button" onclick="openReport('- sjb', 'yesterday')">Gisteren</button>
         <button class="action-button" onclick="openHourly('today', '- sjb')">Uren vandaag</button>
         <button class="action-button" onclick="openHourly('yesterday', '- sjb')">Uren gisteren</button>
-        <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/180RV6tbDCHuyVHSkzgAcBBODCt0T-kHqzloZ1lIfAh4/edit?gid=1493191612#gid=1493191612', '_blank')">Worksheet</button>
+        <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/180RV6tbDCHuyVHSkzgAcBBODCt0T-kHqzloZ1lIfAh4/edit?gid=0#gid=0', '_blank')">Worksheet</button>
       </div></div>
       <div class="card"><div class="label">Ejla</div><div class="buttons">
         <button class="action-button" onclick="openReport('- sep', 'today')">Vandaag</button>
@@ -161,7 +225,6 @@
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=1258505811#gid=1258505811', '_blank')">Worksheet</button>
       </div></div>
     </div>
-
     <div class="col">
       <div class="card"><div class="label">Sebastian</div><div class="buttons">
         <button class="action-button" onclick="openReport('- sse', 'today')">Vandaag</button>
@@ -182,14 +245,14 @@
         <button class="action-button" onclick="openReport('- swb', 'yesterday')">Gisteren</button>
         <button class="action-button" onclick="openHourly('today', '- swb')">Uren vandaag</button>
         <button class="action-button" onclick="openHourly('yesterday', '- swb')">Uren gisteren</button>
-        <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/14fbPQgc2CSWO7lOZ8rIibimqCK4bJ-G5uZZcPkgE_c0/edit?gid=1426903825#gid=1426903825', '_blank')">Worksheet</button>
+        <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/14fbPQgc2CSWO7lOZ8rIibimqCK4bJ-G5uZZcPkgE_c0/edit?gid=1426903825', '_blank')">Worksheet</button>
       </div></div>
       <div class="card"><div class="label">Richard</div><div class="buttons">
         <button class="action-button" onclick="openReport('- srz', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- srz', 'yesterday')">Gisteren</button>
         <button class="action-button" onclick="openHourly('today', '- srz')">Uren vandaag</button>
         <button class="action-button" onclick="openHourly('yesterday', '- srz')">Uren gisteren</button>
-        <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/14QJVhBZnC0xV5TG7z9hvSjWHYMAESSB9uOShaAo5vWQ/edit?gid=1426903825#gid=1426903825', '_blank')">Worksheet</button>
+        <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/14QJVhBZnC0xV5TG7z9hvSjWHYMAESSB9uOShaAo5vWQ/edit?gid=1426903825', '_blank')">Worksheet</button>
       </div></div>
       <div class="card"><div class="label">Luc</div><div class="buttons">
         <button class="action-button" onclick="openReport('- slr', 'today')">Vandaag</button>
@@ -230,46 +293,6 @@
   </div>
 
   <script>
-    // Database van sheets gekoppeld aan identifiers uit je screenshot
-    const sheetMap = {
-      "sjb": "180RV6tbDCHuyVHSkzgAcBBODCt0T-kHqzloZ1lIfAh4",
-      "sgv": "1bGmd7204kBpp2iykwrZips_vQWluXp0F8SobE0UQHcE",
-      "sse": "15EI3EDCGKmq3Db42nmRfIGVjvSCMPdgJhY_3OQjHe6M",
-      "sjh": "1kT_9Yy1SrSLJxcvR4ydH_FukL1firLml2udxDqxsk9M",
-      "srz": "14QJVhBZnC0xV5TG7z9hvSjWHYMAESSB9uOShaAo5vWQ",
-      "sep": "1cTfYY5fipXojhSludGEsQxCj1KFqd_LOs4N0Hol65ms",
-      "swb": "14fbPQgc2CSWO7lOZ8rIibimqCK4bJ-G5uZZcPkgE_c0",
-      "slj": "1wvIGj7297Bu8wQcpVVOaG2utARy8eRefxy3bu74DMwM",
-      "sbl": "1Uu5XuNv0umFlDQmBOMBqBZVMgbevNQrL92ScAbcPvnU",
-      "ssu": "1tTyKpfDfp2wTg6YKMhb4_glpierS7g5DKgp_hQaHVnY",
-      "slh": "1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM",
-      "sow": "1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM",
-      "sss": "1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM",
-      "sst": "1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM",
-      "sks": "1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM",
-      "sod": "1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM",
-      "sjr": "1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM",
-      "slr": "1bG3-ah_-bTAC80xX9B83OkjMEBvZsnc3qPlhteLBnrw"
-    };
-
-    function goToSheet() {
-      const query = document.getElementById('sheetQuery').value.trim();
-      if (!query) return;
-      
-      const prefix = query.substring(0, 3).toLowerCase();
-      const sheetId = sheetMap[prefix];
-      
-      if (sheetId) {
-        // Gebruik de browser search parameter van Google Sheets
-        // Dit opent de sheet en zet de identifier alvast in het zoekveld
-        const url = `https://docs.google.com/spreadsheets/d/${sheetId}/edit#gid=0&fvid=0&range=A1&search=${encodeURIComponent(query)}`;
-        window.open(url, '_blank');
-        document.getElementById('sheetQuery').value = '';
-      } else {
-        alert("Identifier niet herkend (gebruik bijv. sjh, sjb, sep...)");
-      }
-    }
-
     function formatDate(date) { return date.toISOString().slice(0, 10); }
 
     function openD2D() {
@@ -281,7 +304,10 @@
     }
 
     function resetFilters() {
-      document.querySelectorAll('input').forEach(i => i.value = '');
+      document.getElementById('fromDate').value = '';
+      document.getElementById('toDate').value = '';
+      document.getElementById('campaignQuery').value = '';
+      document.getElementById('campaignIdQuery').value = '';
     }
 
     function openReport(campagne, range, isId = false) {
@@ -329,7 +355,6 @@
 
     document.getElementById('campaignQuery').addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSearchCampaign(); });
     document.getElementById('campaignIdQuery').addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSearchById(); });
-    document.getElementById('sheetQuery').addEventListener('keydown', (e) => { if (e.key === 'Enter') goToSheet(); });
   </script>
 </div>
 </body>
