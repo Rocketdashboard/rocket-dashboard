@@ -4,193 +4,33 @@
 <link href="https://rocket.maximizer.io/favicon.png" rel="icon"/>
 <title>Rocket Rapporten</title>
 <style>
-    :root {
-      --bg-color: #f4f4f4;
-      --text-color: #222;
-      --card-color: #ffffff;
-      --button-color: #007bff;
-      --button-hover: #0056b3;
-    }
+    :root { --bg-color: #f4f4f4; --text-color: #222; --card-color: #ffffff; --button-color: #007bff; --button-hover: #0056b3; }
+    body.dark { --bg-color: #1e1e1e; --text-color: #f1f1f1; --card-color: #2b2b2b; --button-color: #3399ff; --button-hover: #1a75d1; }
+    body { font-family: Arial, sans-serif; padding: 40px; background: var(--bg-color); color: var(--text-color); transition: background 0.3s, color 0.3s; }
+    .container { max-width: 1200px; margin: 0 auto; position: relative; }
+    .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+    h1 { font-size: 28px; margin: 0; }
+    .toggle-container button { background: none; border: 1px solid var(--text-color); padding: 6px 12px; color: var(--text-color); cursor: pointer; border-radius: 5px; font-size: 14px; }
+    .card { background: var(--card-color); border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
+    .card .label { font-size: 16px; font-weight: bold; margin-bottom: 12px; }
+    .buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+    button.action-button { padding: 8px 14px; font-size: 14px; cursor: pointer; border: none; background: var(--button-color); color: white; border-radius: 5px; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    button.action-button:hover { transform: translateY(-1px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); background: var(--button-hover); }
+    
+    .refresh-btn { background: none; border: none; cursor: pointer; font-size: 18px; color: var(--text-color); padding: 4px 8px; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+    .refresh-btn:hover { background: rgba(0,0,0,0.1); }
+    
+    .top-controls { display: flex; align-items: center; gap: 30px; }
+    .calendar-section { padding-right: 30px; border-right: 1px solid #ccc; display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+    .search-stack { display: flex; flex-direction: column; gap: 10px; flex-grow: 1; }
+    .inline-row { display: flex; align-items: center; gap: 12px; }
+    .fixed-label { min-width: 130px; font-weight: 500; white-space: nowrap; }
+    .search-input { flex-grow: 1; max-width: 350px; }
+    .search-button { min-width: 140px; text-align: center; }
+    input[type="date"], input[type="text"] { font-family: inherit; font-size: 14px; color: var(--text-color); background: var(--card-color); padding: 6px 10px; border: 1px solid #ccc; border-radius: 5px; outline: none; }
 
-    body.dark {
-      --bg-color: #1e1e1e;
-      --text-color: #f1f1f1;
-      --card-color: #2b2b2b;
-      --button-color: #3399ff;
-      --button-hover: #1a75d1;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
-      background: var(--bg-color);
-      color: var(--text-color);
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    .header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-    }
-
-    h1 {
-      font-size: 28px;
-      margin: 0;
-    }
-
-    .toggle-container button {
-      background: none;
-      border: 1px solid var(--text-color);
-      padding: 6px 12px;
-      color: var(--text-color);
-      cursor: pointer;
-      border-radius: 5px;
-      font-size: 14px;
-    }
-
-    .card {
-      background: var(--card-color);
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-    }
-
-    .card .label {
-      font-size: 16px;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    button.action-button {
-      padding: 8px 14px;
-      font-size: 14px;
-      cursor: pointer;
-      border: none;
-      background: var(--button-color);
-      color: white;
-      border-radius: 5px;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    button.action-button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-      background: var(--button-hover);
-    }
-
-    /* Refresh button styling */
-    .refresh-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 18px;
-      color: var(--text-color);
-      padding: 4px 8px;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s;
-    }
-
-    .refresh-btn:hover {
-      background: rgba(0,0,0,0.1);
-    }
-
-    body.dark .refresh-btn:hover {
-      background: rgba(255,255,255,0.1);
-    }
-
-    /* Layout Zoeksectie */
-    .top-controls {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-    }
-
-    .calendar-section {
-      padding-right: 30px;
-      border-right: 1px solid #ccc;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      flex-shrink: 0;
-    }
-
-    .search-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      flex-grow: 1;
-    }
-
-    .inline-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .fixed-label {
-      min-width: 130px;
-      font-weight: 500;
-      white-space: nowrap;
-    }
-
-    .search-input {
-      flex-grow: 1;
-      max-width: 350px;
-    }
-
-    .search-button {
-      min-width: 140px;
-      text-align: center;
-    }
-
-    input[type="date"], input[type="text"] {
-      font-family: inherit;
-      font-size: 14px;
-      color: var(--text-color);
-      background: var(--card-color);
-      padding: 6px 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      outline: none;
-    }
-
-    @media (max-width: 1100px) {
-      .top-controls {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .calendar-section {
-        border-right: none;
-        padding-right: 0;
-        border-bottom: 1px solid #ccc;
-        padding-bottom: 20px;
-      }
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
+    @media (max-width: 1100px) { .top-controls { flex-direction: column; align-items: stretch; } .calendar-section { border-right: none; border-bottom: 1px solid #ccc; padding-bottom: 20px; } }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
 </style>
 </head>
@@ -215,7 +55,6 @@
         </div>
         <button class="action-button" onclick="handleOpenCustomAll()">Open (alle campagnes)</button>
       </div>
-      
       <div class="search-stack">
         <div class="inline-row">
           <span class="fixed-label">Campaign Name:</span>
@@ -238,6 +77,7 @@
       <button class="action-button" onclick="openReport('', 'yesterday')">Gisteren</button>
       <button class="action-button" onclick="openHourly('today')">Uren vandaag</button>
       <button class="action-button" onclick="openHourly('yesterday')">Uren gisteren</button>
+      <button class="action-button" onclick="openD2D()" style="background-color: #28a745;">D2D</button>
       <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1pcaDGNZmGRt5cV8aUGC1eMUPLo8A_aXBlMvVHfvXuSg/edit?gid=1072646418#gid=1072646418', '_blank')">Parentsheet</button>
       <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/14J5aJfmYfS1kykiIfzA0hTG3UHz80r2MyHcicfTacws/edit?gid=118875398#gid=118875398', '_blank')">Informationsheet</button>
     </div>
@@ -378,11 +218,16 @@
   </div>
 
   <script>
-    function formatDate(date) {
-      return date.toISOString().slice(0, 10);
+    function formatDate(date) { return date.toISOString().slice(0, 10); }
+
+    function openD2D() {
+      const nu = new Date();
+      const firstDay = formatDate(new Date(nu.getFullYear(), nu.getMonth(), 1));
+      const today = formatDate(nu);
+      const url = `https://rocket.maximizer.io/stats?dateStart=${firstDay}&dateEnd=${today}&dimensions=date&metrics=cpa,rpc,spend,revenue,profit,roi&filter=spend:gt:1&sort=-date&style=flat`;
+      window.open(url, '_blank');
     }
 
-    // Filters resetten functie
     function resetFilters() {
       document.getElementById('fromDate').value = '';
       document.getElementById('toDate').value = '';
@@ -392,111 +237,46 @@
 
     function openReport(campagne, range, isId = false) {
       const nu = new Date();
-      let dateStart, dateEnd;
-
-      if (range === 'today') {
-        dateStart = dateEnd = formatDate(nu);
-      } else if (range === 'yesterday') {
-        const gisteren = new Date(nu.getTime() - 86400000);
-        dateStart = dateEnd = formatDate(gisteren);
-      }
-
-      let url = `https://rocket.maximizer.io/stats?dateStart=${dateStart}&dateEnd=${dateEnd}`;
-      url += `&dimensions=campaignName,campaignID,campaignStatus,adsetDailyBudget`;
-      url += `&metrics=cpa,rpc,spend,revenue,profit,roi`;
-
-      if (campagne) {
-        url += isId ? `&filter=campaignID:eq:${campagne}` : `&filter=campaignName:cn:${campagne}`;
-      }
-
-      url += `&filter=spend:gt:1&sort=-profit&style=flat`;
-
-      window.open(url, '_blank');
+      let dStart, dEnd;
+      if (range === 'today') { dStart = dEnd = formatDate(nu); } 
+      else { dStart = dEnd = formatDate(new Date(nu.getTime() - 86400000)); }
+      openReportWithDates(campagne, dStart, dEnd, isId);
     }
 
     function openHourly(range, campagne = '') {
       const nu = new Date();
-      let dateStart, dateEnd;
+      let ds = (range === 'today') ? formatDate(nu) : formatDate(new Date(nu.getTime() - 86400000));
+      let url = `https://rocket.maximizer.io/stats?dateStart=${ds}&dateEnd=${ds}&dimensions=hour&metrics=cpa,rpc,spend,revenue,profit,roi`;
+      if (campagne) url += `&filter=campaignName:cn:${campagne}`;
+      window.open(url + `&filter=spend:gt:1&sort=hour&style=flat`, '_blank');
+    }
 
-      if (range === 'today') {
-        dateStart = dateEnd = formatDate(nu);
-      } else if (range === 'yesterday') {
-        const gisteren = new Date(nu.getTime() - 86400000);
-        dateStart = dateEnd = formatDate(gisteren);
-      }
+    function openReportWithDates(campagne, ds, de, isId = false) {
+      if (!ds || !de) { alert('Kies datums.'); return; }
+      let dims = (ds !== de) ? "date,campaignName,campaignID" : "campaignName,campaignID";
+      let url = `https://rocket.maximizer.io/stats?dateStart=${ds}&dateEnd=${de}&dimensions=${dims}&metrics=cpa,rpc,spend,revenue,profit,roi`;
+      if (campagne) url += isId ? `&filter=campaignID:eq:${campagne}` : `&filter=campaignName:cn:${campagne}`;
+      window.open(url + `&filter=spend:gt:1&sort=${ds !== de ? '-date' : '-profit'}&style=flat`, '_blank');
+    }
 
-      let url = `https://rocket.maximizer.io/stats?dateStart=${dateStart}&dateEnd=${dateEnd}`;
-      url += `&dimensions=hour`;
-      url += `&metrics=cpa,rpc,spend,revenue,profit,roi`;
-
-      if (campagne) {
-        url += `&filter=campaignName:cn:${campagne}`;
-      }
-
-      url += `&filter=spend:gt:1&sort=hour&style=flat`;
-
-      window.open(url, '_blank');
+    function handleOpenCustomAll() { openReportWithDates('', document.getElementById('fromDate').value, document.getElementById('toDate').value); }
+    function handleSearchCampaign() {
+      let q = document.getElementById('campaignQuery').value.trim();
+      let f = document.getElementById('fromDate').value, t = document.getElementById('toDate').value;
+      if (q) { if (f && t) openReportWithDates(q, f, t); else openReport(q, 'yesterday'); }
+    }
+    function handleSearchById() {
+      let q = document.getElementById('campaignIdQuery').value.trim();
+      let f = document.getElementById('fromDate').value, t = document.getElementById('toDate').value;
+      if (q) { if (f && t) openReportWithDates(q, f, t, true); else openReport(q, 'yesterday', true); }
     }
 
     function toggleDarkMode() {
       const isDark = document.body.classList.toggle('dark');
       localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      updateThemeToggleLabel();
+      document.getElementById('themeToggleBtn').textContent = isDark ? '☀️ Lichte modus' : '🌙 Donkere modus';
     }
-
-    function updateThemeToggleLabel() {
-      const btn = document.getElementById('themeToggleBtn');
-      if (!btn) return;
-      btn.textContent = document.body.classList.contains('dark') ? '☀️ Lichte modus' : '🌙 Donkere modus';
-    }
-
-    function applyThemeFromStorage() {
-      const saved = localStorage.getItem('theme');
-      document.body.classList.toggle('dark', saved === 'dark');
-      updateThemeToggleLabel();
-    }
-    applyThemeFromStorage();
-
-    function openReportWithDates(campagne, dateStart, dateEnd, isId = false) {
-      if (!dateStart || !dateEnd) {
-        alert('Kies zowel een start- als einddatum.');
-        return;
-      }
-      let url = `https://rocket.maximizer.io/stats?dateStart=${dateStart}&dateEnd=${dateEnd}`;
-      let dimensions = "campaignName,campaignID,campaignStatus,adsetDailyBudget";
-      if (dateStart !== dateEnd) dimensions = "date," + dimensions;
-      url += `&dimensions=${dimensions}&metrics=cpa,rpc,spend,revenue,profit,roi`;
-      if (campagne) url += isId ? `&filter=campaignID:eq:${campagne}` : `&filter=campaignName:cn:${campagne}`;
-      let sortField = (dateStart !== dateEnd) ? "-date" : "-profit";
-      url += `&filter=spend:gt:1&sort=${sortField}&style=flat`;
-      window.open(url, '_blank');
-    }
-
-    function handleOpenCustomAll() {
-      const from = document.getElementById('fromDate').value;
-      const to = document.getElementById('toDate').value;
-      openReportWithDates('', from, to);
-    }
-
-    function handleSearchCampaign() {
-      const input = document.getElementById('campaignQuery');
-      const q = (input.value || '').trim();
-      if (!q) return;
-      const from = document.getElementById('fromDate').value;
-      const to = document.getElementById('toDate').value;
-      if (from && to) openReportWithDates(q, from, to); else openReport(q, 'yesterday');
-      input.value = '';
-    }
-
-    function handleSearchById() {
-      const input = document.getElementById('campaignIdQuery');
-      const q = (input.value || '').trim();
-      if (!q) return;
-      const from = document.getElementById('fromDate').value;
-      const to = document.getElementById('toDate').value;
-      if (from && to) openReportWithDates(q, from, to, true); else openReport(q, 'yesterday', true);
-      input.value = '';
-    }
+    if(localStorage.getItem('theme') === 'dark') { document.body.classList.add('dark'); document.getElementById('themeToggleBtn').textContent = '☀️ Lichte modus'; }
 
     document.getElementById('campaignQuery').addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSearchCampaign(); });
     document.getElementById('campaignIdQuery').addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSearchById(); });
