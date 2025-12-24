@@ -4,32 +4,108 @@
 <link href="https://rocket.maximizer.io/favicon.png" rel="icon"/>
 <title>Rocket Rapporten</title>
 <style>
-    :root { --bg-color: #f4f4f4; --text-color: #222; --card-color: #ffffff; --button-color: #007bff; --button-hover: #0056b3; }
-    body.dark { --bg-color: #1e1e1e; --text-color: #f1f1f1; --card-color: #2b2b2b; --button-color: #3399ff; --button-hover: #1a75d1; }
-    body { font-family: Arial, sans-serif; padding: 40px; background: var(--bg-color); color: var(--text-color); transition: background 0.3s, color 0.3s; }
+    :root { 
+      --bg-color: #f4f4f4; 
+      --text-color: #222; 
+      --card-color: #ffffff; 
+      --button-color: #007bff; 
+      --button-hover: #0056b3; 
+    }
+    body.dark { 
+      --bg-color: #1e1e1e; 
+      --text-color: #f1f1f1; 
+      --card-color: #2b2b2b; 
+      --button-color: #3399ff; 
+      --button-hover: #1a75d1; 
+    }
+    body { 
+      font-family: Arial, sans-serif; 
+      padding: 40px; 
+      background: var(--bg-color); 
+      color: var(--text-color); 
+      transition: background 0.3s, color 0.3s; 
+    }
     .container { max-width: 1200px; margin: 0 auto; position: relative; }
     .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
     h1 { font-size: 28px; margin: 0; }
-    .toggle-container button { background: none; border: 1px solid var(--text-color); padding: 6px 12px; color: var(--text-color); cursor: pointer; border-radius: 5px; font-size: 14px; }
-    .card { background: var(--card-color); border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
+    .toggle-container button { 
+      background: none; 
+      border: 1px solid var(--text-color); 
+      padding: 6px 12px; 
+      color: var(--text-color); 
+      cursor: pointer; 
+      border-radius: 5px; 
+      font-size: 14px; 
+    }
+    .card { 
+      background: var(--card-color); 
+      border-radius: 8px; 
+      padding: 20px; 
+      margin-bottom: 20px; 
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08); 
+    }
     .card .label { font-size: 16px; font-weight: bold; margin-bottom: 12px; }
     .buttons { display: flex; flex-wrap: wrap; gap: 10px; }
-    button.action-button { padding: 8px 14px; font-size: 14px; cursor: pointer; border: none; background: var(--button-color); color: white; border-radius: 5px; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-    button.action-button:hover { transform: translateY(-1px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); background: var(--button-hover); }
+    button.action-button { 
+      padding: 8px 14px; 
+      font-size: 14px; 
+      cursor: pointer; 
+      border: none; 
+      background: var(--button-color); 
+      color: white; 
+      border-radius: 5px; 
+      transition: all 0.2s ease; 
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    }
+    button.action-button:hover { 
+      transform: translateY(-1px); 
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15); 
+      background: var(--button-hover); 
+    }
     
-    .refresh-btn { background: none; border: none; cursor: pointer; font-size: 18px; color: var(--text-color); padding: 4px 8px; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+    .refresh-btn { 
+      background: none; 
+      border: none; 
+      cursor: pointer; 
+      font-size: 18px; 
+      color: var(--text-color); 
+      padding: 4px 8px; 
+      border-radius: 4px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+    }
     .refresh-btn:hover { background: rgba(0,0,0,0.1); }
     
     .top-controls { display: flex; align-items: center; gap: 30px; }
-    .calendar-section { padding-right: 30px; border-right: 1px solid #ccc; display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+    .calendar-section { 
+      padding-right: 30px; 
+      border-right: 1px solid #ccc; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 12px; 
+      flex-shrink: 0; 
+    }
     .search-stack { display: flex; flex-direction: column; gap: 10px; flex-grow: 1; }
     .inline-row { display: flex; align-items: center; gap: 12px; }
     .fixed-label { min-width: 130px; font-weight: 500; white-space: nowrap; }
     .search-input { flex-grow: 1; max-width: 350px; }
     .search-button { min-width: 140px; text-align: center; }
-    input[type="date"], input[type="text"] { font-family: inherit; font-size: 14px; color: var(--text-color); background: var(--card-color); padding: 6px 10px; border: 1px solid #ccc; border-radius: 5px; outline: none; }
+    input[type="date"], input[type="text"] { 
+      font-family: inherit; 
+      font-size: 14px; 
+      color: var(--text-color); 
+      background: var(--card-color); 
+      padding: 6px 10px; 
+      border: 1px solid #ccc; 
+      border-radius: 5px; 
+      outline: none; 
+    }
 
-    @media (max-width: 1100px) { .top-controls { flex-direction: column; align-items: stretch; } .calendar-section { border-right: none; border-bottom: 1px solid #ccc; padding-bottom: 20px; } }
+    @media (max-width: 1100px) { 
+      .top-controls { flex-direction: column; align-items: stretch; } 
+      .calendar-section { border-right: none; border-bottom: 1px solid #ccc; padding-bottom: 20px; } 
+    }
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
 </style>
@@ -77,7 +153,7 @@
       <button class="action-button" onclick="openReport('', 'yesterday')">Gisteren</button>
       <button class="action-button" onclick="openHourly('today')">Uren vandaag</button>
       <button class="action-button" onclick="openHourly('yesterday')">Uren gisteren</button>
-      <button class="action-button" onclick="openD2D()" style="background-color: #28a745;">D2D</button>
+      <button class="action-button" onclick="openD2D()">D2D</button>
       <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1pcaDGNZmGRt5cV8aUGC1eMUPLo8A_aXBlMvVHfvXuSg/edit?gid=1072646418#gid=1072646418', '_blank')">Parentsheet</button>
       <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/14J5aJfmYfS1kykiIfzA0hTG3UHz80r2MyHcicfTacws/edit?gid=118875398#gid=118875398', '_blank')">Informationsheet</button>
     </div>
@@ -149,7 +225,6 @@
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=1258505811#gid=1258505811', '_blank')">Worksheet</button>
       </div></div>
     </div>
-
     <div class="col">
       <div class="card"><div class="label">Sebastian</div><div class="buttons">
         <button class="action-button" onclick="openReport('- sse', 'today')">Vandaag</button>
