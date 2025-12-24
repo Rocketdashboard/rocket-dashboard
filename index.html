@@ -23,7 +23,7 @@
     button.action-button { padding: 8px 14px; font-size: 14px; cursor: pointer; border: none; background: var(--button-color); color: white; border-radius: 5px; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
     button.action-button:hover { transform: translateY(-1px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); background: var(--button-hover); }
     
-    .refresh-btn { background: none; border: none; cursor: pointer; font-size: 18px; color: var(--text-color); padding: 4px 8px; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+    .refresh-btn { background: none; border: none; cursor: pointer; font-size: 18px; color: var(--text-color); padding: 4px 8px; border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
     .refresh-btn:hover { background: rgba(0,0,0,0.1); }
 
     .top-controls { display: flex; align-items: center; gap: 30px; }
@@ -75,7 +75,7 @@
         </div>
         <div class="inline-row">
           <span class="fixed-label">Sheet Zoeker:</span>
-          <input id="sheetQuery" class="search-input" type="text" placeholder="Voer identifier in" />
+          <input id="sheetQuery" class="search-input" type="text" placeholder="Voer identifier in (bijv. sjh_health...)" />
           <button class="action-button search-button" onclick="goToSheet()">Open Sheet</button>
         </div>
       </div>
@@ -161,6 +161,7 @@
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=1258505811#gid=1258505811', '_blank')">Worksheet</button>
       </div></div>
     </div>
+
     <div class="col">
       <div class="card"><div class="label">Sebastian</div><div class="buttons">
         <button class="action-button" onclick="openReport('- sse', 'today')">Vandaag</button>
@@ -229,34 +230,44 @@
   </div>
 
   <script>
+    // Database van sheets gekoppeld aan identifiers uit je screenshot
     const sheetMap = {
-      "sjb": "https://docs.google.com/spreadsheets/d/180RV6tbDCHuyVHSkzgAcBBODCt0T-kHqzloZ1lIfAh4/edit?gid=1493191612#gid=1493191612",
-      "sgv": "https://docs.google.com/spreadsheets/d/1bGmd7204kBpp2iykwrZips_vQWluXp0F8SobE0UQHcE/edit?gid=1426903825#gid=1426903825",
-      "sse": "https://docs.google.com/spreadsheets/d/15EI3EDCGKmq3Db42nmRfIGVjvSCMPdgJhY_3OQjHe6M/edit?gid=1426903825#gid=1426903825",
-      "sjh": "https://docs.google.com/spreadsheets/d/1kT_9Yy1SrSLJxcvR4ydH_FukL1firLml2udxDqxsk9M/edit?gid=1426903825#gid=1426903825",
-      "srz": "https://docs.google.com/spreadsheets/d/14QJVhBZnC0xV5TG7z9hvSjWHYMAESSB9uOShaAo5vWQ/edit?gid=1426903825#gid=1426903825",
-      "sep": "https://docs.google.com/spreadsheets/d/1cTfYY5fipXojhSludGEsQxCj1KFqd_LOs4N0Hol65ms/edit?gid=1426903825#gid=1426903825",
-      "swb": "https://docs.google.com/spreadsheets/d/14fbPQgc2CSWO7lOZ8rIibimqCK4bJ-G5uZZcPkgE_c0/edit?gid=1426903825#gid=1426903825",
-      "slj": "https://docs.google.com/spreadsheets/d/1wvIGj7297Bu8wQcpVVOaG2utARy8eRefxy3bu74DMwM/edit?gid=1426903825#gid=1426903825",
-      "sbl": "https://docs.google.com/spreadsheets/d/1Uu5XuNv0umFlDQmBOMBqBZVMgbevNQrL92ScAbcPvnU/edit?gid=1426903825#gid=1426903825",
-      "ssu": "https://docs.google.com/spreadsheets/d/1tTyKpfDfp2wTg6YKMhb4_glpierS7g5DKgp_hQaHVnY/edit?gid=1426903825",
-      "slh": "https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=328104916#gid=328104916",
-      "sow": "https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=1426903825#gid=1426903825",
-      "sss": "https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=346043053#gid=346043053",
-      "sst": "https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=1864549719#gid=1864549719",
-      "sks": "https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=438204544#gid=438204544",
-      "sod": "https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=1859757568#gid=1859757568",
-      "sjr": "https://docs.google.com/spreadsheets/d/1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM/edit?gid=1258505811#gid=1258505811",
-      "slr": "https://docs.google.com/spreadsheets/d/1bG3-ah_-bTAC80xX9B83OkjMEBvZsnc3qPlhteLBnrw/edit?gid=1426903825#gid=1426903825"
+      "sjb": "180RV6tbDCHuyVHSkzgAcBBODCt0T-kHqzloZ1lIfAh4",
+      "sgv": "1bGmd7204kBpp2iykwrZips_vQWluXp0F8SobE0UQHcE",
+      "sse": "15EI3EDCGKmq3Db42nmRfIGVjvSCMPdgJhY_3OQjHe6M",
+      "sjh": "1kT_9Yy1SrSLJxcvR4ydH_FukL1firLml2udxDqxsk9M",
+      "srz": "14QJVhBZnC0xV5TG7z9hvSjWHYMAESSB9uOShaAo5vWQ",
+      "sep": "1cTfYY5fipXojhSludGEsQxCj1KFqd_LOs4N0Hol65ms",
+      "swb": "14fbPQgc2CSWO7lOZ8rIibimqCK4bJ-G5uZZcPkgE_c0",
+      "slj": "1wvIGj7297Bu8wQcpVVOaG2utARy8eRefxy3bu74DMwM",
+      "sbl": "1Uu5XuNv0umFlDQmBOMBqBZVMgbevNQrL92ScAbcPvnU",
+      "ssu": "1tTyKpfDfp2wTg6YKMhb4_glpierS7g5DKgp_hQaHVnY",
+      "slh": "1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM",
+      "sow": "1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM",
+      "sss": "1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM",
+      "sst": "1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM",
+      "sks": "1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM",
+      "sod": "1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM",
+      "sjr": "1CeLq3O5vC5Dqe5p-F9AR9i8d5ZJa9SfQHzIk9szFdnM",
+      "slr": "1bG3-ah_-bTAC80xX9B83OkjMEBvZsnc3qPlhteLBnrw"
     };
 
     function goToSheet() {
-      const input = document.getElementById('sheetQuery').value.toLowerCase().trim();
-      if (!input) return;
-      const id = input.substring(0, 3);
-      const url = sheetMap[id];
-      if (url) { window.open(url, '_blank'); document.getElementById('sheetQuery').value = ''; } 
-      else { alert("Identifier niet herkend."); }
+      const query = document.getElementById('sheetQuery').value.trim();
+      if (!query) return;
+      
+      const prefix = query.substring(0, 3).toLowerCase();
+      const sheetId = sheetMap[prefix];
+      
+      if (sheetId) {
+        // Gebruik de browser search parameter van Google Sheets
+        // Dit opent de sheet en zet de identifier alvast in het zoekveld
+        const url = `https://docs.google.com/spreadsheets/d/${sheetId}/edit#gid=0&fvid=0&range=A1&search=${encodeURIComponent(query)}`;
+        window.open(url, '_blank');
+        document.getElementById('sheetQuery').value = '';
+      } else {
+        alert("Identifier niet herkend (gebruik bijv. sjh, sjb, sep...)");
+      }
     }
 
     function formatDate(date) { return date.toISOString().slice(0, 10); }
@@ -270,7 +281,7 @@
     }
 
     function resetFilters() {
-      document.querySelectorAll('input').forEach(input => input.value = '');
+      document.querySelectorAll('input').forEach(i => i.value = '');
     }
 
     function openReport(campagne, range, isId = false) {
