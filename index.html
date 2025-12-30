@@ -352,7 +352,6 @@
       window.open(url + `&filter=spend:gt:1&sort=hour&style=flat`, '_blank');
     }
 
-    // BIJGEWERKT: dimensions bevatten nu ook campaignStatus en sourceProvider
     function openReportWithDates(campagne, ds, de, isId = false) {
       if (!ds || !de) { alert('Kies datums.'); return; }
       
@@ -369,15 +368,23 @@
     function handleOpenCustomAll() { openReportWithDates('', document.getElementById('fromDate').value, document.getElementById('toDate').value); }
     
     function handleSearchCampaign() {
-      let q = document.getElementById('campaignQuery').value.trim();
+      const input = document.getElementById('campaignQuery');
+      let q = input.value.trim();
       let f = document.getElementById('fromDate').value, t = document.getElementById('toDate').value;
-      if (q) { if (f && t) openReportWithDates(q, f, t); else openReport(q, 'yesterday'); }
+      if (q) { 
+        if (f && t) openReportWithDates(q, f, t); else openReport(q, 'yesterday'); 
+        input.value = ''; // Inputveld leegmaken na zoeken
+      }
     }
     
     function handleSearchById() {
-      let q = document.getElementById('campaignIdQuery').value.trim();
+      const input = document.getElementById('campaignIdQuery');
+      let q = input.value.trim();
       let f = document.getElementById('fromDate').value, t = document.getElementById('toDate').value;
-      if (q) { if (f && t) openReportWithDates(q, f, t, true); else openReport(q, 'yesterday', true); }
+      if (q) { 
+        if (f && t) openReportWithDates(q, f, t, true); else openReport(q, 'yesterday', true); 
+        input.value = ''; // Inputveld leegmaken na zoeken
+      }
     }
 
     function toggleDarkMode() {
