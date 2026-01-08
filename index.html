@@ -355,7 +355,8 @@
     function openReportWithDates(campagne, ds, de, isId = false) {
       if (!ds || !de) { alert('Kies datums.'); return; }
       
-      let dims = "campaignName,campaignID,campaignStatus,sourceProvider";
+      // adsetDailyBudget toegevoegd aan de dimensies
+      let dims = "campaignName,campaignID,campaignStatus,sourceProvider,adsetDailyBudget";
       if (ds !== de) dims = "date," + dims;
       
       let url = `https://rocket.maximizer.io/stats?dateStart=${ds}&dateEnd=${de}&dimensions=${dims}&metrics=cpa,rpc,spend,revenue,profit,roi`;
