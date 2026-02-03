@@ -325,23 +325,29 @@
     function resetFilters() {
       const btn = document.getElementById('refreshBtn');
       btn.classList.add('spin-animation');
-      
       document.getElementById('fromDate').value = '';
       document.getElementById('toDate').value = '';
       document.getElementById('campaignQuery').value = '';
       document.getElementById('campaignIdQuery').value = '';
-      
-      setTimeout(() => {
-        btn.classList.remove('spin-animation');
-      }, 600);
+      setTimeout(() => { btn.classList.remove('spin-animation'); }, 600);
     }
 
+    // DE NIEUWE VERBETERDE OPENREPORT
     function openReport(campagne, range, isId = false) {
       const nu = new Date();
       let dStart, dEnd;
       if (range === 'today') { dStart = dEnd = formatDate(nu); } 
       else { dStart = dEnd = formatDate(new Date(nu.getTime() - 86400000)); }
-      openReportWithDates(campagne, dStart, dEnd, isId);
+
+      // Geen query meer in dimensions, wel budget en status. Sortering op profit.
+      let dims = "campaignName,campaignID,campaignStatus,sourceProvider,adsetDailyBudget";
+      let url = `https://rocket.maximizer.io/stats?dateStart=${dStart}&dateEnd=${dEnd}&dimensions=${dims}&metrics=cpa,rpc,spend,revenue,profit,roi`;
+      
+      if (campagne) {
+        url += isId ? `&filter=campaignID:eq:${campagne}` : `&filter=campaignName:cn:${campagne}`;
+      }
+      
+      window.open(url + `&filter=spend:gt:1&sort=-profit&style=flat`, '_blank');
     }
 
     function openHourly(range, campagne = '') {
@@ -354,14 +360,10 @@
 
     function openReportWithDates(campagne, ds, de, isId = false) {
       if (!ds || !de) { alert('Kies datums.'); return; }
-      
-      // adsetDailyBudget toegevoegd aan de dimensies
       let dims = "campaignName,campaignID,campaignStatus,sourceProvider,adsetDailyBudget";
       if (ds !== de) dims = "date," + dims;
-      
       let url = `https://rocket.maximizer.io/stats?dateStart=${ds}&dateEnd=${de}&dimensions=${dims}&metrics=cpa,rpc,spend,revenue,profit,roi`;
       if (campagne) url += isId ? `&filter=campaignID:eq:${campagne}` : `&filter=campaignName:cn:${campagne}`;
-      
       let sortField = (ds !== de) ? "-date" : "-profit";
       window.open(url + `&filter=spend:gt:1&sort=${sortField}&style=flat`, '_blank');
     }
@@ -374,7 +376,7 @@
       let f = document.getElementById('fromDate').value, t = document.getElementById('toDate').value;
       if (q) { 
         if (f && t) openReportWithDates(q, f, t); else openReport(q, 'yesterday'); 
-        input.value = ''; // Inputveld leegmaken na zoeken
+        input.value = '';
       }
     }
     
@@ -384,7 +386,7 @@
       let f = document.getElementById('fromDate').value, t = document.getElementById('toDate').value;
       if (q) { 
         if (f && t) openReportWithDates(q, f, t, true); else openReport(q, 'yesterday', true); 
-        input.value = ''; // Inputveld leegmaken na zoeken
+        input.value = '';
       }
     }
 
