@@ -192,7 +192,7 @@
   <button class="action-button" onclick="openReport('- sjb', 'yesterday')">Gisteren</button>
   <button class="action-button" onclick="openHourly('today', '- sjb')">Uren vandaag</button>
   <button class="action-button" onclick="openHourly('yesterday', '- sjb')">Uren gisteren</button>
-  <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1MWX0IbBoIQmB4o0V4qVSvlPhn-G3_4bS3QIQAq5Hpfo/edit?gid=1493191612#gid=1493191612', '_blank')">Worksheet</button>
+  <button class="action-button" onclick="openJulianWorksheet()">Worksheet</button>
 </div></div>
       <div class="card"><div class="label">Lukas</div><div class="buttons">
         <button class="action-button" onclick="openReport('- slj', 'today')">Vandaag</button>
@@ -389,7 +389,17 @@
         input.value = '';
       }
     }
-
+function openJulianWorksheet() {
+  const keuze = confirm("Wil je Worksheet 1 openen?\n\n(Klik op 'Annuleren' voor Worksheet 2)");
+  
+  if (keuze) {
+    // Link naar Worksheet 1
+    window.open('https://docs.google.com/spreadsheets/d/1MWX0IbBoIQmB4o0V4qVSvlPhn-G3_4bS3QIQAq5Hpfo/edit?gid=1493191612#gid=1493191612', '_blank');
+  } else {
+    // Link naar Worksheet 2 (Nieuwe link)
+    window.open('https://docs.google.com/spreadsheets/d/1Oh1_J1s-Yk-gD86DzrI9by_BgMbHD-2UrGld4Ln7G-M/edit?gid=138020018#gid=138020018', '_blank');
+  }
+}
     function toggleDarkMode() {
       const isDark = document.body.classList.toggle('dark');
       localStorage.setItem('theme', isDark ? 'dark' : 'light');
