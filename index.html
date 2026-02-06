@@ -187,13 +187,50 @@
         <button class="action-button" onclick="openHourly('yesterday', '- sjh')">Uren gisteren</button>
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1kT_9Yy1SrSLJxcvR4ydH_FukL1firLml2udxDqxsk9M/edit?gid=1426903825#gid=1426903825', '_blank')">Worksheet</button>
       </div></div>
-<div class="card"><div class="label">Julian</div><div class="buttons">
-  <button class="action-button" onclick="openReport('- sjb', 'today')">Vandaag</button>
-  <button class="action-button" onclick="openReport('- sjb', 'yesterday')">Gisteren</button>
-  <button class="action-button" onclick="openHourly('today', '- sjb')">Uren vandaag</button>
-  <button class="action-button" onclick="openHourly('yesterday', '- sjb')">Uren gisteren</button>
-  <button class="action-button" onclick="openJulianWorksheet()">Worksheet</button>
-</div></div>
+<style>
+  /* Extra styling voor de keuzeknop */
+  .dropdown { position: relative; display: inline-block; }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--card-color);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 10;
+    border-radius: 5px;
+    bottom: 100%; /* Opent naar boven zodat het niet achter andere kaarten valt */
+    margin-bottom: 5px;
+  }
+  .dropdown-content a {
+    color: var(--text-color);
+    padding: 10px 12px;
+    text-decoration: none;
+    display: block;
+    font-size: 13px;
+    border-bottom: 1px solid #ccc;
+  }
+  .dropdown-content a:last-child { border-bottom: none; }
+  .dropdown-content a:hover { background-color: var(--button-color); color: white; }
+  .dropdown:hover .dropdown-content { display: block; }
+</style>
+
+<div class="card">
+  <div class="label">Julian</div>
+  <div class="buttons">
+    <button class="action-button" onclick="openReport('- sjb', 'today')">Vandaag</button>
+    <button class="action-button" onclick="openReport('- sjb', 'yesterday')">Gisteren</button>
+    <button class="action-button" onclick="openHourly('today', '- sjb')">Uren vandaag</button>
+    <button class="action-button" onclick="openHourly('yesterday', '- sjb')">Uren gisteren</button>
+    
+    <div class="dropdown">
+      <button class="action-button">Worksheets ▾</button>
+      <div class="dropdown-content">
+        <a href="https://docs.google.com/spreadsheets/d/1MWX0IbBoIQmB4o0V4qVSvlPhn-G3_4bS3QIQAq5Hpfo/edit?gid=1493191612#gid=1493191612" target="_blank">Worksheet 1 (Main)</a>
+        <a href="https://docs.google.com/spreadsheets/d/1Oh1_J1s-Yk-gD86DzrI9by_BgMbHD-2UrGld4Ln7G-M/edit?gid=138020018#gid=138020018" target="_blank">Worksheet 2 (Nieuw)</a>
+      </div>
+    </div>
+  </div>
+</div>
       <div class="card"><div class="label">Lukas</div><div class="buttons">
         <button class="action-button" onclick="openReport('- slj', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- slj', 'yesterday')">Gisteren</button>
