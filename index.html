@@ -128,7 +128,7 @@
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
 
-    /* Extra styling voor de keuzeknop */
+    /* Dropdown Styles */
     .dropdown { position: relative; display: inline-block; }
     .dropdown-content {
       display: none;
@@ -366,13 +366,13 @@
   <script>
     function formatDate(date) { return date.toISOString().slice(0, 10); }
 
-    // Nieuwe helper functie om de geselecteerde feed op te halen
+    // Filter helper voor alle rapporten behalve uren
     function getFeedFilter() {
       const feed = document.getElementById('feedSelector').value;
       return (feed === 'ALL') ? '' : `&filter=feedName:eq:${encodeURIComponent(feed)}`;
     }
 
-    // Nieuwe helper om feedName aan dimensions toe te voegen als een feed geselecteerd is
+    // Dimension helper
     function getDimensions(baseDims) {
       const feed = document.getElementById('feedSelector').value;
       return (feed === 'ALL') ? baseDims : `${baseDims},feedName`;
@@ -410,20 +410,20 @@
         url += isId ? `&filter=campaignID:eq:${campagne}` : `&filter=campaignName:cn:${campagne}`;
       }
       
-      // Voeg feed filter en standaard filters toe
       url += `${getFeedFilter()}&filter=spend:gt:1&sort=-profit&style=flat`;
       window.open(url, '_blank');
     }
 
+    // DEZE FUNCTIE NEGEERT NU DE FEED SELECTOR
     function openHourly(range, campagne = '') {
       const nu = new Date();
       let ds = (range === 'today') ? formatDate(nu) : formatDate(new Date(nu.getTime() - 86400000));
-      let dims = getDimensions("hour");
-      let url = `https://rocket.maximizer.io/stats?dateStart=${ds}&dateEnd=${ds}&dimensions=${dims}&metrics=cpa,rpc,spend,revenue,profit,roi`;
+      // Gebruik hardcoded hour dimension zonder feedName
+      let url = `https://rocket.maximizer.io/stats?dateStart=${ds}&dateEnd=${ds}&dimensions=hour&metrics=cpa,rpc,spend,revenue,profit,roi`;
       if (campagne) url += `&filter=campaignName:cn:${campagne}`;
       
-      url += `${getFeedFilter()}&filter=spend:gt:1&sort=hour&style=flat`;
-      window.open(url, '_blank');
+      // Geen feed filter toegevoegd hier
+      window.open(url + `&filter=spend:gt:1&sort=hour&style=flat`, '_blank');
     }
 
     function openReportWithDates(campagne, ds, de, isId = false) {
