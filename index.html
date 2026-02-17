@@ -108,7 +108,7 @@
     .search-input { flex-grow: 1; max-width: 350px; }
     .search-button { min-width: 140px; text-align: center; justify-content: center; }
     
-    input[type="date"], input[type="text"] { 
+    input[type="date"], input[type="text"], select { 
       font-family: inherit; 
       font-size: 14px; 
       color: var(--text-color); 
@@ -127,6 +127,31 @@
     }
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* Extra styling voor de keuzeknop */
+    .dropdown { position: relative; display: inline-block; }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: var(--card-color);
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 10;
+      border-radius: 5px;
+      bottom: 100%;
+      margin-bottom: 5px;
+    }
+    .dropdown-content a {
+      color: var(--text-color);
+      padding: 10px 12px;
+      text-decoration: none;
+      display: block;
+      font-size: 13px;
+      border-bottom: 1px solid #ccc;
+    }
+    .dropdown-content a:last-child { border-bottom: none; }
+    .dropdown-content a:hover { background-color: var(--button-color); color: white; }
+    .dropdown:hover .dropdown-content { display: block; }
 </style>
 </head>
 <body>
@@ -147,6 +172,21 @@
           <span>t/m</span>
           <input id="toDate" type="date"/>
           <button id="refreshBtn" class="refresh-btn" onclick="resetFilters()" title="Filters wissen">🔄</button>
+        </div>
+        <div class="inline-row">
+          <span class="fixed-label">Selecteer Feed:</span>
+          <select id="feedSelector" style="flex-grow: 1;">
+            <option value="ALL">-- Alle Feeds --</option>
+            <option value="Maximizer Feed 1 (organizertone.com)">Maximizer Feed 1 (organizertone.com)</option>
+            <option value="Maximizer Feed 1 (wantedpipe.com)">Maximizer Feed 1 (wantedpipe.com)</option>
+            <option value="Maximizer Feed 1 (targetjunction.com)">Maximizer Feed 1 (targetjunction.com)</option>
+            <option value="Maximizer Feed 1 (nationkernel.com)">Maximizer Feed 1 (nationkernel.com)</option>
+            <option value="Maximizer Feed 3 (goodprojectideas.com)">Maximizer Feed 3 (goodprojectideas.com)</option>
+            <option value="Maximizer Sedo (allinfocenters.com)">Maximizer Sedo (allinfocenters.com)</option>
+            <option value="Maximizer Inuvo (travelingagain.com)">Maximizer Inuvo (travelingagain.com)</option>
+            <option value="Blogic Airfind">Blogic Airfind</option>
+            <option value="Maximizer Stellar (explorerdigest.com)">Maximizer Stellar (explorerdigest.com)</option>
+          </select>
         </div>
         <button class="action-button" onclick="handleOpenCustomAll()" style="justify-content: center;">Open (alle campagnes)</button>
       </div>
@@ -187,50 +227,24 @@
         <button class="action-button" onclick="openHourly('yesterday', '- sjh')">Uren gisteren</button>
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1kT_9Yy1SrSLJxcvR4ydH_FukL1firLml2udxDqxsk9M/edit?gid=1426903825#gid=1426903825', '_blank')">Worksheet</button>
       </div></div>
-<style>
-  /* Extra styling voor de keuzeknop */
-  .dropdown { position: relative; display: inline-block; }
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: var(--card-color);
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 10;
-    border-radius: 5px;
-    bottom: 100%; /* Opent naar boven zodat het niet achter andere kaarten valt */
-    margin-bottom: 5px;
-  }
-  .dropdown-content a {
-    color: var(--text-color);
-    padding: 10px 12px;
-    text-decoration: none;
-    display: block;
-    font-size: 13px;
-    border-bottom: 1px solid #ccc;
-  }
-  .dropdown-content a:last-child { border-bottom: none; }
-  .dropdown-content a:hover { background-color: var(--button-color); color: white; }
-  .dropdown:hover .dropdown-content { display: block; }
-</style>
 
-<div class="card">
-  <div class="label">Julian</div>
-  <div class="buttons">
-    <button class="action-button" onclick="openReport('- sjb', 'today')">Vandaag</button>
-    <button class="action-button" onclick="openReport('- sjb', 'yesterday')">Gisteren</button>
-    <button class="action-button" onclick="openHourly('today', '- sjb')">Uren vandaag</button>
-    <button class="action-button" onclick="openHourly('yesterday', '- sjb')">Uren gisteren</button>
-    
-    <div class="dropdown">
-      <button class="action-button">Worksheet</button>
-      <div class="dropdown-content">
-        <a href="https://docs.google.com/spreadsheets/d/1MWX0IbBoIQmB4o0V4qVSvlPhn-G3_4bS3QIQAq5Hpfo/edit?gid=1493191612#gid=1493191612" target="_blank">Worksheet 1 </a>
-        <a href="https://docs.google.com/spreadsheets/d/1Oh1_J1s-Yk-gD86DzrI9by_BgMbHD-2UrGld4Ln7G-M/edit?gid=138020018#gid=138020018" target="_blank">Worksheet 2 </a>
+      <div class="card">
+        <div class="label">Julian</div>
+        <div class="buttons">
+          <button class="action-button" onclick="openReport('- sjb', 'today')">Vandaag</button>
+          <button class="action-button" onclick="openReport('- sjb', 'yesterday')">Gisteren</button>
+          <button class="action-button" onclick="openHourly('today', '- sjb')">Uren vandaag</button>
+          <button class="action-button" onclick="openHourly('yesterday', '- sjb')">Uren gisteren</button>
+          <div class="dropdown">
+            <button class="action-button">Worksheet</button>
+            <div class="dropdown-content">
+              <a href="https://docs.google.com/spreadsheets/d/1MWX0IbBoIQmB4o0V4qVSvlPhn-G3_4bS3QIQAq5Hpfo/edit?gid=1493191612#gid=1493191612" target="_blank">Worksheet 1 </a>
+              <a href="https://docs.google.com/spreadsheets/d/1Oh1_J1s-Yk-gD86DzrI9by_BgMbHD-2UrGld4Ln7G-M/edit?gid=138020018#gid=138020018" target="_blank">Worksheet 2 </a>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
+      
       <div class="card"><div class="label">Lukas</div><div class="buttons">
         <button class="action-button" onclick="openReport('- slj', 'today')">Vandaag</button>
         <button class="action-button" onclick="openReport('- slj', 'yesterday')">Gisteren</button>
@@ -281,6 +295,7 @@
         <button class="action-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1LCZ05qG9A-YjgrUVMbm3sBkEToWB5fubA2o2LvuqLmg/edit?gid=1426903825#gid=1426903825', '_blank')">Worksheet</button>
       </div></div>
     </div>
+
     <div class="col">
       <div class="card"><div class="label">Sebastian</div><div class="buttons">
         <button class="action-button" onclick="openReport('- sse', 'today')">Vandaag</button>
@@ -351,11 +366,23 @@
   <script>
     function formatDate(date) { return date.toISOString().slice(0, 10); }
 
+    // Nieuwe helper functie om de geselecteerde feed op te halen
+    function getFeedFilter() {
+      const feed = document.getElementById('feedSelector').value;
+      return (feed === 'ALL') ? '' : `&filter=feedName:eq:${encodeURIComponent(feed)}`;
+    }
+
+    // Nieuwe helper om feedName aan dimensions toe te voegen als een feed geselecteerd is
+    function getDimensions(baseDims) {
+      const feed = document.getElementById('feedSelector').value;
+      return (feed === 'ALL') ? baseDims : `${baseDims},feedName`;
+    }
+
     function openD2D() {
       const nu = new Date();
       const firstDay = formatDate(new Date(nu.getFullYear(), nu.getMonth(), 1));
       const today = formatDate(nu);
-      const url = `https://rocket.maximizer.io/stats?dateStart=${firstDay}&dateEnd=${today}&dimensions=date&metrics=cpa,rpc,spend,revenue,profit,roi&filter=spend:gt:1&sort=-date&style=flat`;
+      const url = `https://rocket.maximizer.io/stats?dateStart=${firstDay}&dateEnd=${today}&dimensions=date&metrics=cpa,rpc,spend,revenue,profit,roi&filter=spend:gt:1&sort=-date&style=flat${getFeedFilter()}`;
       window.open(url, '_blank');
     }
 
@@ -366,6 +393,7 @@
       document.getElementById('toDate').value = '';
       document.getElementById('campaignQuery').value = '';
       document.getElementById('campaignIdQuery').value = '';
+      document.getElementById('feedSelector').value = 'ALL';
       setTimeout(() => { btn.classList.remove('spin-animation'); }, 600);
     }
 
@@ -375,34 +403,41 @@
       if (range === 'today') { dStart = dEnd = formatDate(nu); } 
       else { dStart = dEnd = formatDate(new Date(nu.getTime() - 86400000)); }
 
-      // De exacte opzet die je vroeg (inclusief 'query' in dimensions)
-      let dims = "campaignName,query,campaignID,campaignStatus,adsetDailyBudget";
+      let dims = getDimensions("campaignName,query,campaignID,campaignStatus,adsetDailyBudget");
       let url = `https://rocket.maximizer.io/stats?dateStart=${dStart}&dateEnd=${dEnd}&dimensions=${dims}&metrics=cpa,rpc,spend,revenue,profit,roi`;
       
       if (campagne) {
         url += isId ? `&filter=campaignID:eq:${campagne}` : `&filter=campaignName:cn:${campagne}`;
       }
       
-      // Filter op spend > 1, sorteren op winst en stijl op flat
-      window.open(url + `&filter=spend:gt:1&sort=-profit&style=flat`, '_blank');
+      // Voeg feed filter en standaard filters toe
+      url += `${getFeedFilter()}&filter=spend:gt:1&sort=-profit&style=flat`;
+      window.open(url, '_blank');
     }
 
     function openHourly(range, campagne = '') {
       const nu = new Date();
       let ds = (range === 'today') ? formatDate(nu) : formatDate(new Date(nu.getTime() - 86400000));
-      let url = `https://rocket.maximizer.io/stats?dateStart=${ds}&dateEnd=${ds}&dimensions=hour&metrics=cpa,rpc,spend,revenue,profit,roi`;
+      let dims = getDimensions("hour");
+      let url = `https://rocket.maximizer.io/stats?dateStart=${ds}&dateEnd=${ds}&dimensions=${dims}&metrics=cpa,rpc,spend,revenue,profit,roi`;
       if (campagne) url += `&filter=campaignName:cn:${campagne}`;
-      window.open(url + `&filter=spend:gt:1&sort=hour&style=flat`, '_blank');
+      
+      url += `${getFeedFilter()}&filter=spend:gt:1&sort=hour&style=flat`;
+      window.open(url, '_blank');
     }
 
     function openReportWithDates(campagne, ds, de, isId = false) {
       if (!ds || !de) { alert('Kies datums.'); return; }
       let dims = "campaignName,campaignID,campaignStatus,sourceProvider,adsetDailyBudget";
       if (ds !== de) dims = "date," + dims;
+      dims = getDimensions(dims);
+
       let url = `https://rocket.maximizer.io/stats?dateStart=${ds}&dateEnd=${de}&dimensions=${dims}&metrics=cpa,rpc,spend,revenue,profit,roi`;
       if (campagne) url += isId ? `&filter=campaignID:eq:${campagne}` : `&filter=campaignName:cn:${campagne}`;
+      
       let sortField = (ds !== de) ? "-date" : "-profit";
-      window.open(url + `&filter=spend:gt:1&sort=${sortField}&style=flat`, '_blank');
+      url += `${getFeedFilter()}&filter=spend:gt:1&sort=${sortField}&style=flat`;
+      window.open(url, '_blank');
     }
 
     function handleOpenCustomAll() { openReportWithDates('', document.getElementById('fromDate').value, document.getElementById('toDate').value); }
@@ -426,17 +461,7 @@
         input.value = '';
       }
     }
-function openJulianWorksheet() {
-  const keuze = confirm("Wil je Worksheet 1 openen?\n\n(Klik op 'Annuleren' voor Worksheet 2)");
-  
-  if (keuze) {
-    // Link naar Worksheet 1
-    window.open('https://docs.google.com/spreadsheets/d/1MWX0IbBoIQmB4o0V4qVSvlPhn-G3_4bS3QIQAq5Hpfo/edit?gid=1493191612#gid=1493191612', '_blank');
-  } else {
-    // Link naar Worksheet 2 (Nieuwe link)
-    window.open('https://docs.google.com/spreadsheets/d/1Oh1_J1s-Yk-gD86DzrI9by_BgMbHD-2UrGld4Ln7G-M/edit?gid=138020018#gid=138020018', '_blank');
-  }
-}
+
     function toggleDarkMode() {
       const isDark = document.body.classList.toggle('dark');
       localStorage.setItem('theme', isDark ? 'dark' : 'light');
